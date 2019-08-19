@@ -3,7 +3,20 @@ Winner's Code and Technical Report for the nuScenes 3D Object Detection challeng
 
 ## Technical Report
 
+![](./imgs/title.png)
+
+![](./imgs/netarch.png)
+
+
+
 
 ## Detection Results on Train/Val/Test Split can be downloaded at xxx.
 
-## 
+##Citation
+
+If you find this work useful in your research, please consider cite:
+
+```
+
+```
+
