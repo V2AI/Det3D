@@ -1,7 +1,7 @@
 # Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection
 This repository contains  the Winner's Code and Technical Report of the nuScenes 3D Object Detection challenge in WAD, CVPR 2019.
 
-Code will be made public before CVPR 2020 submission deadline.
+Code will be made public before the CVPR 2020 submission deadline.
 
 ## Technical Report
 
@@ -27,10 +27,10 @@ More details of the challenge can be found at [nuScenes Detection Leaderboard](h
 ### Trained Models
 
 * Model Checkpoint: [LINK](https://drive.google.com/open?id=11RmTy6fCgD8soXUcLr2zHaRe6aV4yCuI)
-* Detection Results Of [Train]()/[Val](https://drive.google.com/open?id=1Zb1jPYzRY4_7oW7PgII6i673RLrdgZx2)/[Test](https://drive.google.com/open?id=1QbseUsG5w0AJtMRxPvD2Pa2BsB2OS3Y2) Split.
+* Detection Results Of [Train](https://drive.google.com/open?id=1SIVtKeGw_rVBZgJ4vSuQ4gSSqbdevYvD)/[Val](https://drive.google.com/open?id=1Zb1jPYzRY4_7oW7PgII6i673RLrdgZx2)/[Test](https://drive.google.com/open?id=1QbseUsG5w0AJtMRxPvD2Pa2BsB2OS3Y2) Split.
 * Training Log: [LINK](https://drive.google.com/open?id=12mf4qYLg7i7mTu5UFK-zhTjmzwQ5hfZ1)
 
-The provided checkpoint is a single model with 51.91% mAP and 62.83% NDS. Its input grid size is (0.05m, 0.05m, 0.2m). The cell below shows result details.
+The provided checkpoint is a single model with 51.91% mAP and 62.83% NDS. Its input grid size is (0.05m, 0.05m, 0.2m). The cell below shows result details on Val Split.
 
 ```
 mAP: 0.5191
