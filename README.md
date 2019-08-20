@@ -3,8 +3,6 @@ This repository contains  the Winner's Code and Technical Report of the nuScenes
 
 Code will be made public before CVPR 2020 submission deadline.
 
-Code will be made public before CVPR 2020 submission deadline.
-
 ## Technical Report
 
 ![](./imgs/title.png)
