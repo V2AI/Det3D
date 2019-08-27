@@ -9,7 +9,7 @@ Code will be made public before the CVPR 2020 submission deadline.
 
 ![](./imgs/netarch.png)
 
-[ArXiv]()
+[ArXiv](https://arxiv.org/abs/1908.09492)
 
 
 
