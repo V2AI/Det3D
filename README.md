@@ -69,6 +69,23 @@ traffic_cone Nusc dist AP@0.5, 1.0, 2.0, 4.0
 If you find this work useful in your research, please consider cite:
 
 ```
+@ARTICLE{2019arXiv190809492Z,
+       author = {{Zhu}, Benjin and {Jiang}, Zhengkai and {Zhou}, Xiangxin and
+         {Li}, Zeming and {Yu}, Gang},
+        title = "{Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection}",
+      journal = {arXiv e-prints},
+     keywords = {Computer Science - Computer Vision and Pattern Recognition},
+         year = "2019",
+        month = "Aug",
+          eid = {arXiv:1908.09492},
+        pages = {arXiv:1908.09492},
+archivePrefix = {arXiv},
+       eprint = {1908.09492},
+ primaryClass = {cs.CV},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2019arXiv190809492Z},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
 
 ```
 
