@@ -63,6 +63,8 @@ traffic_cone Nusc dist AP@0.5, 1.0, 2.0, 4.0
 59.83, 61.38, 63.94, 67.85 mean AP: 0.6325
 ```
 
+## Acknowledgement
+This repo is based on [Det3D](https://github.com/poodarchu/det3d）
 
 ## Citation
 
