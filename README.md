@@ -64,7 +64,7 @@ traffic_cone Nusc dist AP@0.5, 1.0, 2.0, 4.0
 ```
 
 ## Dependencies
-This repo is based on [MegDet3D](https://github.com/poodarchu/megdet3d)
+This repo is based on [Det3D](https://github.com/poodarchu/det3d)
 
 
 ## Citation
