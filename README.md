@@ -1,92 +1,141 @@
-# Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection
-This repository contains  the Winner's Code and Technical Report of the nuScenes 3D Object Detection challenge in WAD, CVPR 2019.
+det3d
+==============================
 
-Code will be made public before the CVPR 2020 submission deadline.
+A general purpose pytorch version 3D object detection codebase.
 
-## Technical Report
-
-![](./imgs/title.png)
-
-![](./imgs/netarch.png)
-
-[ArXiv](https://arxiv.org/abs/1908.09492)
-
-
-
-## Results
-
-### Final Submission compared to PointPillars baseline.
-
-|              | Modality | Map Data | External Data | mAP  | mATE  | mASE  | mAOE  | mAVE  | mAAE  | NDS  |
-| ------------ | -------- | -------- | ------------- | ---- | ----- | ----- | ----- | ----- | ----- | ---- |
-| PointPillars | LiDAR    | No       | No            | 30.5 | 0.517 | 0.290 | 0.500 | 0.316 | 0.368 | 45.3 |
-| Ours         | LiDAR    | No       | No            | 52.8 | 0.300 | 0.247 | 0.380 | 0.245 | 0.140 | 63.3 |
-
-More details of the challenge can be found at [nuScenes Detection Leaderboard](https://www.nuscenes.org/object-detection?externalData=all&mapData=all&modalities=Any).
-
-### Trained Models
-
-* Model Checkpoint: [LINK](https://drive.google.com/open?id=11RmTy6fCgD8soXUcLr2zHaRe6aV4yCuI)
-* Detection Results Of [Train](https://drive.google.com/open?id=1SIVtKeGw_rVBZgJ4vSuQ4gSSqbdevYvD)/[Val](https://drive.google.com/open?id=1Zb1jPYzRY4_7oW7PgII6i673RLrdgZx2)/[Test](https://drive.google.com/open?id=1QbseUsG5w0AJtMRxPvD2Pa2BsB2OS3Y2) Split.
-
-The provided checkpoint is a single model with 51.91% mAP and 62.83% NDS. Its input grid size is (0.05m, 0.05m, 0.2m). The cell below shows result details on Val Split.
-
+Project Organization
+------------
 ```
-mAP: 0.5191
-mATE: 0.3212
-mASE: 0.2563
-mAOE: 0.3092
-mAVE: 0.2281
-mAAE: 0.1980
-NDS: 0.6283
-Eval time: 128.4s
-2019-08-20 15:26:32,578 Training INFO: Evaluation nusc: Nusc v1.0-trainval Evaluation
-car Nusc dist AP@0.5, 1.0, 2.0, 4.0
-72.88, 82.54, 85.90, 87.73 mean AP: 0.8227
-truck Nusc dist AP@0.5, 1.0, 2.0, 4.0
-30.76, 51.07, 59.57, 63.75 mean AP: 0.5129
-construction_vehicle Nusc dist AP@0.5, 1.0, 2.0, 4.0
-0.69, 6.33, 16.17, 22.54 mean AP: 0.11433
-bus Nusc dist AP@0.5, 1.0, 2.0, 4.0
-34.91, 58.73, 73.58, 77.44 mean AP: 0.61163
-trailer Nusc dist AP@0.5, 1.0, 2.0, 4.0
-1.33, 20.37, 40.35, 48.42 mean AP: 0.2762
-barrier Nusc dist AP@0.5, 1.0, 2.0, 4.0
-53.17, 64.34, 68.63, 70.98 mean AP: 0.6428
-motorcycle Nusc dist AP@0.5, 1.0, 2.0, 4.0
-45.94, 51.22, 52.41, 52.74 mean AP: 0.5058
-bicycle Nusc dist AP@0.5, 1.0, 2.0, 4.0
-25.26, 26.18, 26.25, 26.49 mean AP: 0.2605
-pedestrian Nusc dist AP@0.5, 1.0, 2.0, 4.0
-78.78, 80.25, 81.91, 83.65 mean AP: 0.8115
-traffic_cone Nusc dist AP@0.5, 1.0, 2.0, 4.0
-59.83, 61.38, 63.94, 67.85 mean AP: 0.6325
+.
+├── examples   -- all supported models
+├── docs
+├── det3d
+├── LICENSE
+├── README.md
+├── requirements.txt
+├── setup.py
+└── tools
 ```
 
-## Dependencies
-This repo is based on [MegDet3D](https://github.com/poodarchu/megdet3d)
+Prerequisite
+-------------------
+## 0. Requirements
+- Cuda 9.0 +
+- Pytorch 1.1
+- Python 3.6+
+- [APEX](https://github.com/NVIDIA/apex.git)
+- [spconv](https://github.com/traveller59/spconv/commit/73427720a539caf9a44ec58abe3af7aa9ddb8e39) 
+- nuscenes_devkit
+- Lyft_dataset_kit
 
-
-## Citation
-
-If you find this work useful in your research, please consider cite:
-
+## 1. Get Started
 ```
-@ARTICLE{2019arXiv190809492Z,
-       author = {{Zhu}, Benjin and {Jiang}, Zhengkai and {Zhou}, Xiangxin and
-         {Li}, Zeming and {Yu}, Gang},
-        title = "{Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection}",
-      journal = {arXiv e-prints},
-     keywords = {Computer Science - Computer Vision and Pattern Recognition},
-         year = "2019",
-        month = "Aug",
-          eid = {arXiv:1908.09492},
-        pages = {arXiv:1908.09492},
-archivePrefix = {arXiv},
-       eprint = {1908.09492},
- primaryClass = {cs.CV},
-       adsurl = {https://ui.adsabs.harvard.edu/abs/2019arXiv190809492Z},
-      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
-}
+git clone https://github.com/poodarchu/det3d.git
+python setup.py build develop
 ```
+2. Data Preparation
+-----------------
+## 2.1 download data and organise as follows
+```
+# For KITTI Dataset
+└── KITTI_DATASET_ROOT
+       ├── training    <-- 7481 train data
+       |   ├── image_2 <-- for visualization
+       |   ├── calib
+       |   ├── label_2
+       |   ├── velodyne
+       |   └── velodyne_reduced <-- empty directory
+       └── testing     <-- 7580 test data
+           ├── image_2 <-- for visualization
+           ├── calib
+           ├── velodyne
+           └── velodyne_reduced <-- empty directory
+
+# For nuScenes Dataset         
+└── NUSCENES_TRAINVAL_DATASET_ROOT
+       ├── samples       <-- key frames
+       ├── sweeps        <-- frames without annotation
+       ├── maps          <-- unused
+       └── v1.0-trainval <-- metadata and annotations
+└── NUSCENES_TEST_DATASET_ROOT
+       ├── samples       <-- key frames
+       ├── sweeps        <-- frames without annotation
+       ├── maps          <-- unused
+       └── v1.0-test     <-- metadata
+```
+## 2. Convert to pkls
+```
+# KITTI
+python create_data.py kitti_data_prep --root_path=KITTI_DATASET_ROOT
+# nuScenes
+python create_data.py nuscenes_data_prep --root_path=NUSCENES_TRAINVAL_DATASET_ROOT --version="v1.0-trainval" --nsweeps=10'
+# Lyft
+python create_data.py lyft_data_prep --root_path=LYFT_TEST_DATASET_ROOT
+```
+## 3. Modify configs
+Modify dataset pkl file path in src/configs/xxx.config:
+```
+DATASET:
+    TYPE: nuScenes
+    ROOT_PATH: /data/Datasets/nuScenes
+    INFO_PATH: /data/Datasets/nuScenes/infos_train_10sweeps_withvelo.pkl
+    NSWEEPS: 10
+BATCH_SIZE: 5 # 5 for 2080ti, 15 for v100
+```
+Specify Tasks
+```
+ HEAD:
+    TASKS:
+        - {num_class: 1, class_names: ["car"]}
+        - {num_class: 2, class_names: ["truck", "construction_vehicle"]}
+        - {num_class: 2, class_names: ["bus", "trailer"]}
+        - {num_class: 1, class_names: ["barrier"]}
+        - {num_class: 2, class_names: ["motorcycle", "bicycle"]}
+        - {num_class: 2, class_names: ["pedestrian", "traffic_cone"]}
+```
+
+Run
+------------
+For better experiments organization, I suggest the following scripts:
+```
+./tools/scripts/train.sh
+```
+
+## 4. Currently Support
+* Models
+  - [x] VoxelNet
+  - [x] SECOND
+  - [x] PointtPillars
+  - [x] PIXOR
+  - [x] SENet & GCNet (GCNet will course model output 0, deprecated.)
+  - [x] Pointnet++
+  - [x] EKF Tracker & IoU Tracker
+  - [x] PointRCNN
+
+* Features
+  - [x] Multi task learning
+  - [x] Single-gpu & Distributed Training and Validation
+  - [x] GradNorm for Multi-task Training
+  - [x] Flexible anchor dimensions
+  - [x] TensorboardX
+  - [x] Checkpointer & breakpoint continue
+  - [x] Support both KITTI and nuScenes Dataset
+  - [x] SyncBN
+  - [x] Self-contained visualization
+  - [x] YAML configuration
+  - [x] ~~SparseConvNet / MinkowskiEngine ~~
+  - [x] OSS Support
+  - [x] ImageNet/Objects365/KITTI pretraining : No Effect
+  - [x] Finetune
+  - [x] Multiscale Training & Validation
+  - [x] Rotated RoI Align
+
+
+## 5. TODO List
+* Models
+  - [ ] FrustumPointnet
+  - [ ] VoteNet
+
+* Features
+
 
