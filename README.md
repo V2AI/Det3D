@@ -41,7 +41,6 @@ git clone https://github.com/poodarchu/det3d.git
 python setup.py build develop
 ```
 ## Data Preparation
-
 -----------------
 ###  1. download data and organise as follows
 ```
