@@ -1,7 +1,15 @@
-det3d
-==============================
+# Det3D
 
-A general purpose pytorch version 3D object detection codebase.
+A general 3D Object Detection codebase in PyTorch
+
+## Introduction
+
+Det3D is the first 3D Object Detection toolbox which provides off the box implementations of many 3D object detection algorithms such as PointPillars, SECOND, PointRCNN, PIXOR, etc, as well as state-of-the-art methods on major benchmarks like KITTI(ViP) and nuScenes(CBGS). Key features of Det3D include the following apects:
+
+* Multi Datasets Support: KITTI, nuScenes, Lyft, waymo
+* Point-based and Voxel-based model zoo
+* State-of-the-art performance
+* DDP & SyncBN
 
 Project Organization
 ------------
@@ -19,7 +27,6 @@ Project Organization
 
 Prerequisite
 -------------------
-## 0. Requirements
 - Cuda 9.0 +
 - Pytorch 1.1
 - Python 3.6+
@@ -28,14 +35,15 @@ Prerequisite
 - nuscenes_devkit
 - Lyft_dataset_kit
 
-## 1. Get Started
+## Get Started
 ```
 git clone https://github.com/poodarchu/det3d.git
 python setup.py build develop
 ```
-2. Data Preparation
+## Data Preparation
+
 -----------------
-## 2.1 download data and organise as follows
+###  1. download data and organise as follows
 ```
 # For KITTI Dataset
 └── KITTI_DATASET_ROOT
@@ -63,7 +71,7 @@ python setup.py build develop
        ├── maps          <-- unused
        └── v1.0-test     <-- metadata
 ```
-## 2. Convert to pkls
+### 2. Convert to pkls
 ```
 # KITTI
 python create_data.py kitti_data_prep --root_path=KITTI_DATASET_ROOT
@@ -72,7 +80,7 @@ python create_data.py nuscenes_data_prep --root_path=NUSCENES_TRAINVAL_DATASET_R
 # Lyft
 python create_data.py lyft_data_prep --root_path=LYFT_TEST_DATASET_ROOT
 ```
-## 3. Modify configs
+### 3. Modify configs
 Modify dataset pkl file path in src/configs/xxx.config:
 ```
 DATASET:
@@ -101,7 +109,20 @@ For better experiments organization, I suggest the following scripts:
 ./tools/scripts/train.sh
 ```
 
+## Benchmark
+
+|              | KITTI(Val) | nuScenes(Val) |
+| ------------ | ---------- | ------------- |
+| VoxelNet     | √          | √             |
+| SECOND       | √          | √             |
+| PointPillars | √          | √             |
+| PIXOR        | √          | √             |
+| PointRCNN    | x          | x             |
+| CBGS         | √          | √             |
+| ViP          | x          | x             |
+
 ## 4. Currently Support
+
 * Models
   - [x] VoxelNet
   - [x] SECOND
@@ -123,9 +144,6 @@ For better experiments organization, I suggest the following scripts:
   - [x] SyncBN
   - [x] Self-contained visualization
   - [x] YAML configuration
-  - [x] ~~SparseConvNet / MinkowskiEngine ~~
-  - [x] OSS Support
-  - [x] ImageNet/Objects365/KITTI pretraining : No Effect
   - [x] Finetune
   - [x] Multiscale Training & Validation
   - [x] Rotated RoI Align
