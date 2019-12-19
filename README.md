@@ -155,4 +155,12 @@ For better experiments organization, I suggest the following scripts:
 
 * Features
 
+## Developers
+Benjin Zhu, Bingqi Ma.
+
+## Acknowlegement
+* mmdetection
+* second.pytorch
+* maskrcnn_benchmark
+
 
