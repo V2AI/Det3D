@@ -194,9 +194,9 @@ class KittiDataset(PointCloudDataset):
         return results, dt_annos
 
     def __getitem__(self, idx):
-        return self.prepare_input(idx, with_gp=True)
+        return self.get_sensor_data(idx, with_gp=True)
 
-    def prepare_input(self, idx, with_image=False, with_gp=False):
+    def get_sensor_data(self, idx, with_image=False, with_gp=False):
 
         info = self._kitti_infos[idx]
 

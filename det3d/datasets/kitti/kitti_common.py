@@ -4,7 +4,7 @@ import numpy as np
 
 from collections import OrderedDict
 from pathlib import Path
-
+from skimage import io
 from tqdm import tqdm
 
 from det3d.core import box_np_ops
@@ -97,8 +97,8 @@ def _calculate_num_points_in_gt(
 
 
 def create_kitti_info_file(data_path, save_path=None, relative_path=True):
-    imageset_folder = Path(__file__).resolve().parent / "ImageSets"
-    train_img_ids = _read_imageset_file(str(imageset_folder / "debug_train.txt"))
+    imageset_folder = Path(__file__).resolve().parent.parent / "ImageSets"
+    train_img_ids = _read_imageset_file(str(imageset_folder / "train.txt"))
     val_img_ids = _read_imageset_file(str(imageset_folder / "val.txt"))
     test_img_ids = _read_imageset_file(str(imageset_folder / "test.txt"))
 
@@ -117,11 +117,10 @@ def create_kitti_info_file(data_path, save_path=None, relative_path=True):
         relative_path=relative_path,
     )
     _calculate_num_points_in_gt(data_path, kitti_infos_train, relative_path)
-    filename = save_path / "kitti_infos_train_debug.pkl"
+    filename = save_path / "kitti_infos_train.pkl"
     print(f"Kitti info train file is saved to {filename}")
     with open(filename, "wb") as f:
         pickle.dump(kitti_infos_train, f)
-    """
     kitti_infos_val = get_kitti_image_info(data_path,
                                            training=True,
                                            velodyne=True,
@@ -129,11 +128,11 @@ def create_kitti_info_file(data_path, save_path=None, relative_path=True):
                                            image_ids=val_img_ids,
                                            relative_path=relative_path)
     _calculate_num_points_in_gt(data_path, kitti_infos_val, relative_path)
-    filename = save_path / 'kitti_infos_val_debug.pkl'
+    filename = save_path / 'kitti_infos_val.pkl'
     print(f"Kitti info val file is saved to {filename}")
     with open(filename, 'wb') as f:
         pickle.dump(kitti_infos_val, f)
-    filename = save_path / 'kitti_infos_trainval_debug.pkl'
+    filename = save_path / 'kitti_infos_trainval.pkl'
     print(f"Kitti info trainval file is saved to {filename}")
     with open(filename, 'wb') as f:
         pickle.dump(kitti_infos_train + kitti_infos_val, f)
@@ -144,11 +143,10 @@ def create_kitti_info_file(data_path, save_path=None, relative_path=True):
                                                   calib=True,
                                                   image_ids=test_img_ids,
                                                   relative_path=relative_path)
-    filename = save_path / 'kitti_infos_test_debug.pkl'
+    filename = save_path / 'kitti_infos_test.pkl'
     print(f"Kitti info test file is saved to {filename}")
     with open(filename, 'wb') as f:
         pickle.dump(kitti_infos_test, f)
-    """
 
 
 def _create_reduced_point_cloud(data_path, info_path, save_path=None, back=False):
@@ -198,22 +196,19 @@ def create_reduced_point_cloud(
     with_back=False,
 ):
     if train_info_path is None:
-        train_info_path = Path(data_path) / "kitti_infos_train_debug.pkl"
+        train_info_path = Path(data_path) / "kitti_infos_train.pkl"
     if val_info_path is None:
-        val_info_path = Path(data_path) / "kitti_infos_val_debug.pkl"
+        val_info_path = Path(data_path) / "kitti_infos_val.pkl"
     if test_info_path is None:
-        test_info_path = Path(data_path) / "kitti_infos_test_debug.pkl"
+        test_info_path = Path(data_path) / "kitti_infos_test.pkl"
 
     _create_reduced_point_cloud(data_path, train_info_path, save_path)
-    # _create_reduced_point_cloud(data_path, val_info_path, save_path)
-    # _create_reduced_point_cloud(data_path, test_info_path, save_path)
+    _create_reduced_point_cloud(data_path, val_info_path, save_path)
+    _create_reduced_point_cloud(data_path, test_info_path, save_path)
     if with_back:
         _create_reduced_point_cloud(data_path, train_info_path, save_path, back=True)
         _create_reduced_point_cloud(data_path, val_info_path, save_path, back=True)
-        # _create_reduced_point_cloud(data_path,
-        #                             test_info_path,
-        #                             save_path,
-        #                             back=True)
+        _create_reduced_point_cloud(data_path, test_info_path, save_path, back=True)
 
     def load_annotations(self, ann_file):
         pass

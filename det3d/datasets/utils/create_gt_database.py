@@ -57,11 +57,15 @@ def create_groundtruth_database(
     root_path = Path(data_path)
 
     if dataset_class_name == "NUSC":
-        db_path = root_path / f"gt_database_{nsweeps}sweeps_withvelo"
-        dbinfo_path = root_path / f"dbinfos_train_{nsweeps}sweeps_withvelo.pkl"
+        if db_path is None:
+            db_path = root_path / f"gt_database_{nsweeps}sweeps_withvelo"
+        if dbinfo_path is None:
+            dbinfo_path = root_path / f"dbinfos_train_{nsweeps}sweeps_withvelo.pkl"
     else:
-        db_path = root_path / "gt_database"
-        dbinfo_path = root_path / "dbinfos_train.pkl"
+        if db_path is None:
+            db_path = root_path / "gt_database"
+        if dbinfo_path is None:
+            dbinfo_path = root_path / "dbinfos_train.pkl"
 
     db_path.mkdir(parents=True, exist_ok=True)
 
