@@ -17,8 +17,7 @@ from det3d.utils.dist.dist_common import (
 from pycocotools.cocoeval import COCOeval
 from torch.utils.data import Dataset
 
-from .coco_utils import fast_eval_recall, results2json
-from .mean_ap import eval_map
+from det3d.core import fast_eval_recall, results2json, eval_map
 
 
 class KittiDistEvalmAPHook(Hook):
