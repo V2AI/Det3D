@@ -9,7 +9,7 @@ import numpy as np
 import torch
 from det3d.builder import _create_learning_rate_scheduler
 
-# from det3d.core.evaluation import KittiDistEvalmAPHook, KittiEvalmAPHookV2
+# from det3d.datasets.kitti.eval_hooks import KittiDistEvalmAPHook, KittiEvalmAPHookV2
 from det3d.core import DistOptimizerHook
 from det3d.datasets import DATASETS, build_dataloader
 from det3d.solver.fastai_optim import OptimWrapper
