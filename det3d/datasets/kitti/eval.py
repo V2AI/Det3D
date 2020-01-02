@@ -513,7 +513,7 @@ def get_official_eval_result(
     # TODO dt2gt
     metrics = do_eval_v3(
         gt_annos,
-        gt_annos,
+        dt_annos,
         current_classes,
         min_overlaps,
         compute_aos,
