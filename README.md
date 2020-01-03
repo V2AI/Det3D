@@ -2,6 +2,9 @@
 
 A general 3D Object Detection codebase in PyTorch
 
+## Advertisement
+We're hiring 3D computer vision interns, please send your resume to poodarchu@gmail.com if you are interested in 3D object detection, segmentation or 6D pose estimation.
+
 ## Introduction
 
 Det3D is the first 3D Object Detection toolbox which provides off the box implementations of many 3D object detection algorithms such as PointPillars, SECOND, PointRCNN, PIXOR, etc, as well as state-of-the-art methods on major benchmarks like KITTI(ViP) and nuScenes(CBGS). Key features of Det3D include the following apects:
