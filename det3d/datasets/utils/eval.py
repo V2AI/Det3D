@@ -192,7 +192,7 @@ def compute_statistics_jit(
                 continue
             if ignored_threshold[j]:
                 continue
-            overlap = overlaps[i, j]
+            overlap = overlaps[j, i]
             dt_score = dt_scores[j]
             if (
                 not compute_fp

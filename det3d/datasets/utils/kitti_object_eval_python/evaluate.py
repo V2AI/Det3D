@@ -1,7 +1,7 @@
 import time
 import fire
 
-from det3d.datasets import kitti
+from det3d.datasets.kitti import kitti_common as kitti
 from .eval import get_official_eval_result, get_coco_eval_result
 
 
