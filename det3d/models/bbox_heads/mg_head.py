@@ -1064,7 +1064,7 @@ class MultiGroupHead(nn.Module):
                 dtype = batch_reg_preds.dtype
                 device = batch_reg_preds.device
                 predictions_dict = {
-                    "box3d_lidar": torch.zeros([0, 7], dtype=dtype, device=device),
+                    "box3d_lidar": torch.zeros([0, self.box_n_dim], dtype=dtype, device=device),
                     "scores": torch.zeros([0], dtype=dtype, device=device),
                     "label_preds": torch.zeros(
                         [0], dtype=top_labels.dtype, device=device

@@ -34,8 +34,7 @@ class PointCloudDataset(Dataset):
 
         self.test_mode = test_mode
 
-        if not self.test_mode:
-            self._set_group_flag()
+        self._set_group_flag()
 
         if pipeline is None:
             self.pipeline = None

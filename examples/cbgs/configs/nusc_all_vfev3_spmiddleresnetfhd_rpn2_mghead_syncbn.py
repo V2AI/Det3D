@@ -317,6 +317,7 @@ data = dict(
         info_path=train_anno,
         ann_file=train_anno,
         n_sweeps=n_sweeps,
+        test_mode=False,
         class_names=class_names,
         pipeline=train_pipeline,
     ),
@@ -326,6 +327,7 @@ data = dict(
         info_path=val_anno,
         ann_file=val_anno,
         n_sweeps=n_sweeps,
+        test_mode=True,
         class_names=class_names,
         pipeline=test_pipeline,
     ),
@@ -370,5 +372,5 @@ log_level = "INFO"
 work_dir = "/data/Outputs/det3d_Outputs/SECOND_NUSC"
 load_from = None
 resume_from = None
-workflow = [("train", 1), ("val", 1)]
+workflow = [("train", 5), ("val", 1)]
 # workflow = [('train', 1)]

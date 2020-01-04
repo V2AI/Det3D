@@ -3,7 +3,7 @@ import pickle
 import json
 import random
 import operator
-import objgraph
+import numpy as np
 
 from functools import reduce
 from pathlib import Path
@@ -14,9 +14,14 @@ from nuscenes.eval.detection.config import config_factory
 
 from det3d.datasets.custom import PointCloudDataset
 from det3d.datasets.utils.ground_plane_detection import fit_plane_LSE_RANSAC
-
-from .nusc_common import *
-from ..registry import DATASETS
+from det3d.datasets.nuscenes.nusc_common import (
+    general_to_detection,
+    cls_attr_dist,
+    _second_det_to_nusc_box,
+    _lidar_nusc_box_to_global,
+    eval_main
+)
+from det3d.datasets.registry import DATASETS
 
 
 @DATASETS.register_module
@@ -113,7 +118,7 @@ class NuScenesDataset(PointCloudDataset):
     def ground_truth_annotations(self):
         if "gt_boxes" not in self._nusc_infos[0]:
             return None
-        cls_range_map = config_factory(self.eval_version)
+        cls_range_map = config_factory(self.eval_version).serialize()['class_range']
         gt_annos = []
         for info in self._nusc_infos:
             gt_names = np.array(info["gt_names"])
@@ -311,4 +316,4 @@ class NuScenesDataset(PointCloudDataset):
         else:
             res = None
 
-        return res
+        return res, None
