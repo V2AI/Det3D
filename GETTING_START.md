@@ -4,7 +4,7 @@ This document aims to provide a brief introduction to use Det3D
 
 ### Prepare data
 
-####1.download data and organise as follows
+#### 1.download data and organise as follows
 
 ```
 # For KITTI Dataset
@@ -44,7 +44,7 @@ This document aims to provide a brief introduction to use Det3D
            ├── lidar
            └── maps
 ```
-####2.create data 
+#### 2.create data 
 
 ```
 # KITTI
