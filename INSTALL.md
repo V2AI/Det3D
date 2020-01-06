@@ -68,4 +68,4 @@ $ cd Det3D
 $ python setup.py build develop
 ```
 
-if  **ModuleNotFoundError: No module named 'det3d.ops.nms.nms' ** occurs, just run the command above for another one time.
+if  **ModuleNotFoundError: No module named 'det3d.ops.nms.nms'** occurs, just run the command above for another one time.
