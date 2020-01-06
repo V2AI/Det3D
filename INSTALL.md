@@ -38,8 +38,8 @@ $ pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--c
 ```bash
  $ sudo apt-get install libboost-all-dev
  $ git clone https://github.com/traveller59/spconv.git --recursive
- $ cdspconv && git checkout 7342772
- $ python setu.py bdist_wheel
+ $ cd spconv && git checkout 7342772
+ $ python setup.py bdist_wheel
  $ cd ./dist && pip install *
 ```
 
