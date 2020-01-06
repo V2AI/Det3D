@@ -107,44 +107,43 @@ def build_optimizer(optimizer_config, net, name=None, mixed=False, loss_scale=51
     Raises:
         ValueError: when using an unsupported input data type.
     """
-    optimizer_type = optimizer_config.TYPE
-    config = optimizer_config.VALUE
+    optimizer_type = optimizer_config.type
 
     if optimizer_type == "rms_prop_optimizer":
         optimizer_func = partial(
             torch.optim.RMSprop,
-            alpha=config.decay,
-            momentum=config.momentum_optimizer_value,
-            eps=config.epsilon,
+            alpha=optimizer_config.decay,
+            momentum=optimizer_config.momentum_optimizer_value,
+            eps=optimizer_config.epsilon,
         )
     elif optimizer_type == "momentum_optimizer":
         optimizer_func = partial(
             torch.optim.SGD,
-            momentum=config.momentum_optimizer_value,
-            eps=config.epsilon,
+            momentum=optimizer_config.momentum_optimizer_value,
+            eps=optimizer_config.epsilon,
         )
     elif optimizer_type == "adam":
-        if optimizer_config.FIXED_WD:
+        if optimizer_config.fixed_wd:
             optimizer_func = partial(
-                torch.optim.Adam, betas=(0.9, 0.99), amsgrad=config.amsgrad
+                torch.optim.Adam, betas=(0.9, 0.99), amsgrad=optimizer_config.amsgrad
             )
         else:
             # regular adam
-            optimizer_func = partial(torch.optim.Adam, amsgrad=config.amsgrad)
+            optimizer_func = partial(torch.optim.Adam, amsgrad=optimizer_config.amsgrad)
 
     optimizer = OptimWrapper.create(
         optimizer_func,
         3e-3,
         get_layer_groups(net),
-        wd=config.WD,
-        true_wd=optimizer_config.FIXED_WD,
+        wd=optimizer_config.wd,
+        true_wd=optimizer_config.fixed_wd,
         bn_wd=True,
     )
 
     if optimizer is None:
         raise ValueError("Optimizer %s not supported." % optimizer_type)
 
-    if optimizer_config.MOVING_AVERAGE:
+    if optimizer_config.moving_average:
         raise ValueError("torch don't support moving average")
 
     if name is None:
