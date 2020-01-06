@@ -190,6 +190,14 @@ if __name__ == "__main__":
                 ],
                 extra_compile_args={"cxx": ["-g"], "nvcc": ["-O2"]},
             ),
+            CUDAExtension(
+                name="det3d.ops.nms.nms",
+                sources=[
+                    "det3d/ops/nms/nms.cc",
+                    "det3d/ops/nms/nms_kernel.cu",
+                ],
+                extra_compile_args={"cxx": ["-g"], "nvcc": ["-O2"]},
+            ),
             make_cuda_ext(
                 name="sigmoid_focal_loss_cuda",
                 module="det3d.ops.sigmoid_focal_loss",
