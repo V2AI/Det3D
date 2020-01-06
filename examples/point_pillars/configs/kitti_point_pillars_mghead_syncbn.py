@@ -156,8 +156,8 @@ val_preprocessor = dict(
 )
 
 voxel_generator = dict(
-    range=[0, -40.0, -3.0, 70.4, 40.0, 1.0],
-    voxel_size=[0.2, 0.2, 4.0],
+    range=[0, -39.68, -3, 69.12, 39.68, 1],
+    voxel_size=[0.16, 0.16, 4.0],
     max_points_in_voxel=100,
     max_voxel_num=12000,
 )
@@ -251,7 +251,7 @@ total_epochs = 100
 device_ids = range(8)
 dist_params = dict(backend="nccl", init_method="env://")
 log_level = "INFO"
-work_dir = "/data/Outputs/det3d_Outputs/SECOND"
+work_dir = "/data/Outputs/det3d_Outputs/Point_Pillars"
 load_from = None
 resume_from = None
 workflow = [("train", 5), ("val", 1)]
