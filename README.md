@@ -29,22 +29,27 @@ We provide many baseline results and trained models. Please refer to [MODEL_ZOO.
   - [x] VoxelNet
   - [x] SECOND
   - [x] PointPillars
-  - [x] PIXOR
-  
 * Features
-  - [x] Single-gpu & Distributed Training and Validation & SyncBN
-  - [x] Multi task learning & GradNorm
-  - [x] Checkpointer & breakpoint continue
-  - [x] Self-contained visualization
-  - [x] Multiscale Training & Validation
-  - [x] Rotated RoI Align
+    - [x] Multi task learning & Multi-task Learning
+    - [x] Distributed Training and Validation
+    - [x] SyncBN
+    - [x] Flexible anchor dimensions
+    - [x] TensorboardX
+    - [x] Checkpointer & Breakpoint continue
+    - [x] Self-contained visualization
+    - [x] Finetune
+    - [x] Multiscale Training & Validation
+    - [x] Rotated RoI Align
 
 
 ## TODO List
 * Models
-  - [ ] FrustumPointnet
-  - [ ] VoteNet
   - [ ] PointRCNN
+  - [ ] PIXOR
+
+## Developers
+
+[Benjin Zhu](https://github.com/poodarchu/) , [Bingqi Ma](https://github.com/a157801)
 
 ## License
 
