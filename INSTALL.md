@@ -38,8 +38,8 @@ $ pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--c
 ```bash
  $ sudo apt-get install libboost-all-dev
  $ git clone https://github.com/traveller59/spconv.git --recursive
- $ cdspconv && git checkout 7342772
- $ python setu.py bdist_wheel
+ $ cd spconv && git checkout 7342772
+ $ python setup.py bdist_wheel
  $ cd ./dist && pip install *
 ```
 
@@ -68,4 +68,4 @@ $ cd Det3D
 $ python setup.py build develop
 ```
 
-if  **ModuleNotFoundError: No module named 'det3d.ops.nms.nms' ** occurs, just run the command above for another one time.
+if  **ModuleNotFoundError: No module named 'det3d.ops.nms.nms'** occurs, just run the command above for another one time.
