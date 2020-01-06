@@ -56,7 +56,7 @@ class NuScenesDataset(PointCloudDataset):
         self._name_mapping = general_to_detection
 
         self.version = "v1.0-trainval"
-        self.eval_version = "detection_cvpr_2019"
+        self.eval_version = "cvpr_2019"
 
     def reset(self):
         self.logger.info(f"re-sample {self.frac} frames from full set")
@@ -186,7 +186,6 @@ class NuScenesDataset(PointCloudDataset):
 
         if not testset:
             dets = []
-
             gt_annos = self.ground_truth_annotations
             assert gt_annos is not None
 

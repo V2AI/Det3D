@@ -2,168 +2,78 @@
 
 A general 3D Object Detection codebase in PyTorch
 
-## Advertisement
-We're hiring 3D computer vision interns, please send your resume to poodarchu@gmail.com if you are interested in 3D object detection, segmentation or 6D pose estimation.
-
 ## Introduction
 
-Det3D is the first 3D Object Detection toolbox which provides off the box implementations of many 3D object detection algorithms such as PointPillars, SECOND, PointRCNN, PIXOR, etc, as well as state-of-the-art methods on major benchmarks like KITTI(ViP) and nuScenes(CBGS). Key features of Det3D include the following apects:
+Det3D is the first 3D Object Detection toolbox which provides off the box implementations of many 3D object detection algorithms such as PointPillars, SECOND, PIXOR, etc, as well as state-of-the-art methods on major benchmarks like KITTI(ViP) and nuScenes(CBGS). Key features of Det3D include the following aspects:
 
-* Multi Datasets Support: KITTI, nuScenes, Lyft, waymo
+* Multi Datasets Support: KITTI, nuScenes, Lyft
 * Point-based and Voxel-based model zoo
 * State-of-the-art performance
 * DDP & SyncBN
 
-Project Organization
-------------
-```
-.
-├── examples   -- all supported models
-├── docs
-├── det3d
-├── LICENSE
-├── README.md
-├── requirements.txt
-├── setup.py
-└── tools
-```
+## Installation
 
-Prerequisite
--------------------
-- Cuda 9.0 +
-- Pytorch 1.1
-- Python 3.6+
-- [APEX](https://github.com/NVIDIA/apex.git)
-- [spconv](https://github.com/traveller59/spconv/commit/73427720a539caf9a44ec58abe3af7aa9ddb8e39) 
-- nuscenes_devkit
-- Lyft_dataset_kit
+Please refer to [INSTALL.md](INSTALL.md).
 
-## Get Started
-```
-git clone https://github.com/poodarchu/det3d.git
-python setup.py build develop
-```
-## Data Preparation
------------------
-###  1. download data and organise as follows
-```
-# For KITTI Dataset
-└── KITTI_DATASET_ROOT
-       ├── training    <-- 7481 train data
-       |   ├── image_2 <-- for visualization
-       |   ├── calib
-       |   ├── label_2
-       |   ├── velodyne
-       |   └── velodyne_reduced <-- empty directory
-       └── testing     <-- 7580 test data
-           ├── image_2 <-- for visualization
-           ├── calib
-           ├── velodyne
-           └── velodyne_reduced <-- empty directory
+## Quick Start
 
-# For nuScenes Dataset         
-└── NUSCENES_TRAINVAL_DATASET_ROOT
-       ├── samples       <-- key frames
-       ├── sweeps        <-- frames without annotation
-       ├── maps          <-- unused
-       └── v1.0-trainval <-- metadata and annotations
-└── NUSCENES_TEST_DATASET_ROOT
-       ├── samples       <-- key frames
-       ├── sweeps        <-- frames without annotation
-       ├── maps          <-- unused
-       └── v1.0-test     <-- metadata
-```
-### 2. Convert to pkls
-```
-# KITTI
-python create_data.py kitti_data_prep --root_path=KITTI_DATASET_ROOT
-# nuScenes
-python create_data.py nuscenes_data_prep --root_path=NUSCENES_TRAINVAL_DATASET_ROOT --version="v1.0-trainval" --nsweeps=10'
-# Lyft
-python create_data.py lyft_data_prep --root_path=LYFT_TEST_DATASET_ROOT
-```
-### 3. Modify configs
-Modify dataset pkl file path in src/configs/xxx.config:
-```
-DATASET:
-    TYPE: nuScenes
-    ROOT_PATH: /data/Datasets/nuScenes
-    INFO_PATH: /data/Datasets/nuScenes/infos_train_10sweeps_withvelo.pkl
-    NSWEEPS: 10
-BATCH_SIZE: 5 # 5 for 2080ti, 15 for v100
-```
-Specify Tasks
-```
- HEAD:
-    TASKS:
-        - {num_class: 1, class_names: ["car"]}
-        - {num_class: 2, class_names: ["truck", "construction_vehicle"]}
-        - {num_class: 2, class_names: ["bus", "trailer"]}
-        - {num_class: 1, class_names: ["barrier"]}
-        - {num_class: 2, class_names: ["motorcycle", "bicycle"]}
-        - {num_class: 2, class_names: ["pedestrian", "traffic_cone"]}
-```
+Please refer to [GETTING_START.md](GETTING_START.md).
 
-Run
-------------
-For better experiments organization, I suggest the following scripts:
-```
-./tools/scripts/train.sh
-```
+## Model Zoo and Baselines
 
-## Benchmark
+We provide many baseline results and trained models. Please refer to [MODEL_ZOO.md](MODEL_ZOO.md).
 
-|              | KITTI(Val) | nuScenes(Val) |
-| ------------ | ---------- | ------------- |
-| VoxelNet     | √          | √             |
-| SECOND       | √          | √             |
-| PointPillars | √          | √             |
-| PIXOR        | √          | √             |
-| PointRCNN    | x          | x             |
-| CBGS         | √          | √             |
-| ViP          | x          | x             |
-
-## 4. Currently Support
+## Currently Support
 
 * Models
   - [x] VoxelNet
   - [x] SECOND
-  - [x] PointtPillars
-  - [x] PIXOR
-  - [x] SENet & GCNet (GCNet will course model output 0, deprecated.)
-  - [x] Pointnet++
-  - [x] EKF Tracker & IoU Tracker
-  - [x] PointRCNN
-
+  - [x] PointPillars
 * Features
-  - [x] Multi task learning
-  - [x] Single-gpu & Distributed Training and Validation
-  - [x] GradNorm for Multi-task Training
-  - [x] Flexible anchor dimensions
-  - [x] TensorboardX
-  - [x] Checkpointer & breakpoint continue
-  - [x] Support both KITTI and nuScenes Dataset
-  - [x] SyncBN
-  - [x] Self-contained visualization
-  - [x] YAML configuration
-  - [x] Finetune
-  - [x] Multiscale Training & Validation
-  - [x] Rotated RoI Align
+    - [x] Multi task learning & Multi-task Learning
+    - [x] Distributed Training and Validation
+    - [x] SyncBN
+    - [x] Flexible anchor dimensions
+    - [x] TensorboardX
+    - [x] Checkpointer & Breakpoint continue
+    - [x] Self-contained visualization
+    - [x] Finetune
+    - [x] Multiscale Training & Validation
+    - [x] Rotated RoI Align
 
 
-## 5. TODO List
+## TODO List
 * Models
-  - [ ] FrustumPointnet
-  - [ ] VoteNet
-
-* Features
+  - [ ] PointRCNN
+  - [ ] PIXOR
 
 ## Developers
-Benjin Zhu, Bingqi Ma.
+
+[Benjin Zhu](https://github.com/poodarchu/) , [Bingqi Ma](https://github.com/a157801)
+
+## License
+
+Det3D is released under the MIT license.
 
 ## Acknowlegement
-* mmdetection
-* second.pytorch
-* maskrcnn_benchmark
 
+* [mmdetection](https://github.com/open-mmlab/mmdetection)
+* [second.pytorch](https://github.com/traveller59/second.pytorch)
+* [maskrcnn_benchmark](https://github.com/facebookresearch/maskrcnn-benchmark)
 
+## Citation
+
+If you use this toolbox or benchmark in your research, please cite this project.
+
+```BIB
+@article{CBGS,
+  author    = {Benjin Zhu and
+               Zhengkai Jiang and
+               Xiangxin Zhou and
+               Zeming Li and
+               Gang Yu},
+  title     = {Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection},
+  journal   = {arXiv preprint arXiv:1908.094925},
+  year      = {2019},
+}
+```
