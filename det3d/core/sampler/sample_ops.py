@@ -190,7 +190,7 @@ class DataBaseSamplerV2:
                     s_points_list.append(s_points)
                     # print(pathlib.Path(info["path"]).stem)
                 except Exception:
-                    print(info["path"])
+                    print(str(pathlib.Path(root_path) / info["path"]))
                     continue
             # gt_bboxes = np.stack([s["bbox"] for s in sampled], axis=0)
             # if np.random.choice([False, True], replace=False, p=[0.3, 0.7]):

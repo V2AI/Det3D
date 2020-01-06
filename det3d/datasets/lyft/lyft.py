@@ -12,7 +12,7 @@ from .eval import get_lyft_eval_result
 @DATASETS.register_module
 class LyftDataset(PointCloudDataset):
 
-    NumPointFeatures = 5
+    NumPointFeatures = 4
     DatasetName = "LyftDataset"
 
     def __init__(
@@ -21,7 +21,6 @@ class LyftDataset(PointCloudDataset):
         info_path,
         cfg=None,
         pipeline=None,
-        class_names=None,
         test_mode=False,
         **kwargs
     ):
@@ -30,7 +29,8 @@ class LyftDataset(PointCloudDataset):
         )
 
         self._info_path = info_path
-        self._class_names = class_names
+        self._class_names = ["car", "pedestrian", "motorcycle", "bicycle",
+                             "other_vehicle", "bus", "truck"]
 
         self.load_infos(self._info_path)
         self._num_point_features = __class__.NumPointFeatures

@@ -221,7 +221,7 @@ data_root = "/data/Datasets/nuScenes"
 db_sampler = dict(
     type="GT-AUG",
     enable=False,
-    db_info_path="/data/Datasets/nuScenes/dbinfos_train.pkl",
+    db_info_path="/data/Datasets/nuScenes/dbinfos_train_10sweeps_withvelo.pkl",
     sample_groups=[
         dict(car=2),
         dict(truck=3),
@@ -309,15 +309,14 @@ val_anno = "/data/Datasets/nuScenes/infos_val_10sweeps_withvelo.pkl"
 test_anno = None
 
 data = dict(
-    samples_per_gpu=6,
-    workers_per_gpu=4,
+    samples_per_gpu=4,
+    workers_per_gpu=2,
     train=dict(
         type=dataset_type,
         root_path=data_root,
         info_path=train_anno,
         ann_file=train_anno,
         n_sweeps=n_sweeps,
-        test_mode=False,
         class_names=class_names,
         pipeline=train_pipeline,
     ),
@@ -325,9 +324,9 @@ data = dict(
         type=dataset_type,
         root_path=data_root,
         info_path=val_anno,
+        test_mode=True,
         ann_file=val_anno,
         n_sweeps=n_sweeps,
-        test_mode=True,
         class_names=class_names,
         pipeline=test_pipeline,
     ),
@@ -357,7 +356,7 @@ lr_config = dict(
 checkpoint_config = dict(interval=1)
 # yapf:disable
 log_config = dict(
-    interval=50,
+    interval=5,
     hooks=[
         dict(type="TextLoggerHook"),
         # dict(type='TensorboardLoggerHook')
@@ -369,8 +368,8 @@ total_epochs = 20
 device_ids = range(8)
 dist_params = dict(backend="nccl", init_method="env://")
 log_level = "INFO"
-work_dir = "/data/Outputs/det3d_Outputs/SECOND_NUSC"
+work_dir = "/data/Outputs/MegDet3D_Outputs/SECOND_NUSC"
 load_from = None
 resume_from = None
-workflow = [("train", 5), ("val", 1)]
+workflow = [("train", 1), ("val", 1)]
 # workflow = [('train', 1)]

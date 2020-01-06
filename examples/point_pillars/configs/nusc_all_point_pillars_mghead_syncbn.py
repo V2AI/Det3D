@@ -18,14 +18,13 @@ tasks = [
 
 class_names = list(itertools.chain(*[t["class_names"] for t in tasks]))
 
-# training and testing settings
 target_assigner = dict(
     type="iou",
     anchor_generators=[
         dict(
             type="anchor_generator_range",
             sizes=[1.97, 4.63, 1.74],
-            anchor_ranges=[-50.4, -50.4, -0.95, 50.4, 50.4, -0.95],
+            anchor_ranges=[-50, -50, -0.95, 50, 50, -0.95],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.6,
@@ -35,7 +34,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.51, 6.93, 2.84],
-            anchor_ranges=[-50.4, -50.4, -0.40, 50.4, 50.4, -0.40],
+            anchor_ranges=[-50, -50, -0.40, 50, 50, -0.40],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.55,
@@ -45,7 +44,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.85, 6.37, 3.19],
-            anchor_ranges=[-50.4, -50.4, -0.225, 50.4, 50.4, -0.225],
+            anchor_ranges=[-50, -50, -0.225, 50, 50, -0.225],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.5,
@@ -55,7 +54,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.94, 10.5, 3.47],
-            anchor_ranges=[-50.4, -50.4, -0.085, 50.4, 50.4, -0.085],
+            anchor_ranges=[-50, -50, -0.085, 50, 50, -0.085],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.55,
@@ -65,7 +64,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.90, 12.29, 3.87],
-            anchor_ranges=[-50.4, -50.4, 0.115, 50.4, 50.4, 0.115],
+            anchor_ranges=[-50, -50, 0.115, 50, 50, 0.115],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.5,
@@ -75,7 +74,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.53, 0.50, 0.98],
-            anchor_ranges=[-50.4, -50.4, -1.33, 50.4, 50.4, -1.33],
+            anchor_ranges=[-50, -50, -1.33, 50, 50, -1.33],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.55,
@@ -85,7 +84,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[0.77, 2.11, 1.47],
-            anchor_ranges=[-50.4, -50.4, -1.085, 50.4, 50.4, -1.085],
+            anchor_ranges=[-50, -50, -1.085, 50, 50, -1.085],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.5,
@@ -95,7 +94,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[0.60, 1.70, 1.28],
-            anchor_ranges=[-50.4, -50.4, -1.18, 50.4, 50.4, -1.18],
+            anchor_ranges=[-50, -50, -1.18, 50, 50, -1.18],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.5,
@@ -105,7 +104,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[0.67, 0.73, 1.77],
-            anchor_ranges=[-50.4, -50.4, -0.935, 50.4, 50.4, -0.935],
+            anchor_ranges=[-50, -50, -0.935, 50, 50, -0.935],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.6,
@@ -115,7 +114,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[0.41, 0.41, 1.07],
-            anchor_ranges=[-50.4, -50.4, -1.285, 50.4, 50.4, -1.285],
+            anchor_ranges=[-50, -50, -1.285, 50, 50, -1.285],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.6,
@@ -136,25 +135,23 @@ box_coder = dict(
 
 # model settings
 model = dict(
-    type="VoxelNet",
+    type="PointPillars",
     pretrained=None,
     reader=dict(
-        type="VoxelFeatureExtractorV3",
-        # type='SimpleVoxel',
-        num_input_features=5,
+        type="PillarFeatureNet",
+        num_filters=[64],
+        with_distance=False,
         norm_cfg=norm_cfg,
     ),
-    backbone=dict(
-        type="SpMiddleResNetFHD", num_input_features=5, ds_factor=8, norm_cfg=norm_cfg,
-    ),
+    backbone=dict(type="PointPillarsScatter", ds_factor=1, norm_cfg=norm_cfg,),
     neck=dict(
         type="RPN",
-        layer_nums=[5, 5],
-        ds_layer_strides=[1, 2],
-        ds_num_filters=[128, 256],
-        us_layer_strides=[1, 2],
-        us_num_filters=[256, 256],
-        num_input_features=256,
+        layer_nums=[3, 5, 5],
+        ds_layer_strides=[2, 2, 2],
+        ds_num_filters=[64, 128, 256],
+        us_layer_strides=[0.5, 1, 2],
+        us_num_filters=[128, 128, 128],
+        num_input_features=64,
         norm_cfg=norm_cfg,
         logger=logging.getLogger("RPN"),
     ),
@@ -162,7 +159,7 @@ model = dict(
         # type='RPNHead',
         type="MultiGroupHead",
         mode="3d",
-        in_channels=sum([256, 256]),
+        in_channels=sum([128, 128, 128]),  # this is linked to 'neck' us_num_filters
         norm_cfg=norm_cfg,
         tasks=tasks,
         weights=[1,],
@@ -196,7 +193,6 @@ assigner = dict(
     out_size_factor=get_downsample_factor(model),
     debug=False,
 )
-
 
 train_cfg = dict(assigner=assigner)
 
@@ -280,9 +276,9 @@ val_preprocessor = dict(
 )
 
 voxel_generator = dict(
-    range=[-50.4, -50.4, -5.0, 50.4, 50.4, 3.0],
-    voxel_size=[0.1, 0.1, 0.2],
-    max_points_in_voxel=10,
+    range=[-50, -50, -4.0, 50, 50, 2.0],
+    voxel_size=[0.25, 0.25, 6],
+    max_points_in_voxel=50,
     max_voxel_num=60000,
 )
 
@@ -310,7 +306,7 @@ test_anno = None
 
 data = dict(
     samples_per_gpu=4,
-    workers_per_gpu=2,
+    workers_per_gpu=3,
     train=dict(
         type=dataset_type,
         root_path=data_root,
@@ -324,8 +320,8 @@ data = dict(
         type=dataset_type,
         root_path=data_root,
         info_path=val_anno,
-        test_mode=True,
         ann_file=val_anno,
+        test_mode=True,
         n_sweeps=n_sweeps,
         class_names=class_names,
         pipeline=test_pipeline,
@@ -368,8 +364,7 @@ total_epochs = 20
 device_ids = range(8)
 dist_params = dict(backend="nccl", init_method="env://")
 log_level = "INFO"
-work_dir = "/data/Outputs/MegDet3D_Outputs/SECOND_NUSC"
+work_dir = "/data/Outputs/Det3D_Outputs/Point_Pillars_NUSC"
 load_from = None
 resume_from = None
 workflow = [("train", 1), ("val", 1)]
-# workflow = [('train', 1)]

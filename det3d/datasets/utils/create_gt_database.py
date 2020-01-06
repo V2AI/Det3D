@@ -66,6 +66,10 @@ def create_groundtruth_database(
             db_path = root_path / "gt_database"
         if dbinfo_path is None:
             dbinfo_path = root_path / "dbinfos_train.pkl"
+    if dataset_class_name == "NUSC" or dataset_class_name == "LYFT":
+        point_features = 5
+    elif dataset_class_name == "KITTI":
+        point_features = 4
 
     db_path.mkdir(parents=True, exist_ok=True)
 
@@ -88,6 +92,7 @@ def create_groundtruth_database(
         elif dataset_class_name == "LYFT":
             points = sensor_data["lidar"]["points"]
 
+        print(points.shape)
         annos = sensor_data["lidar"]["annotations"]
         gt_boxes = annos["boxes"]
         names = annos["names"]
@@ -109,7 +114,7 @@ def create_groundtruth_database(
             gt_points = points[point_indices[:, i]]
             gt_points[:, :3] -= gt_boxes[i, :3]
             with open(filepath, "w") as f:
-                gt_points[:, :4].tofile(f)
+                gt_points[:, :point_features].tofile(f)
 
             if (used_classes is None) or names[i] in used_classes:
                 if relative_path:

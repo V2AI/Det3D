@@ -173,12 +173,12 @@ test_cfg = dict(
 
 # dataset settings
 dataset_type = "LyftDataset"
-data_root = "/data/Datasets/LYFT/trainval"
+data_root = "/data/Datasets/LYFT"
 
 db_sampler = dict(
     type="GT-AUG",
     enable=True,
-    db_info_path="/data/Datasets/LYFT/trainval/dbinfos_train.pkl",
+    db_info_path="/data/Datasets/LYFT/dbinfos_train.pkl",
     sample_groups=[
         dict(car=1),
         dict(pedestrian=4),
@@ -260,7 +260,7 @@ test_anno = None
 
 data = dict(
     samples_per_gpu=6,
-    workers_per_gpu=4,
+    workers_per_gpu=2,
     train=dict(
         type=dataset_type,
         root_path=data_root,
@@ -301,7 +301,7 @@ lr_config = dict(
 checkpoint_config = dict(interval=1)
 # yapf:disable
 log_config = dict(
-    interval=50,
+    interval=10,
     hooks=[
         dict(type="TextLoggerHook"),
         # dict(type='TensorboardLoggerHook')
@@ -316,4 +316,4 @@ log_level = "INFO"
 work_dir = "/data/Outputs/det3d_Outputs/SECOND_LYFT"
 load_from = None
 resume_from = None
-workflow = [("train", 1), ("val", 1)]
+workflow = [("train", 1)]
