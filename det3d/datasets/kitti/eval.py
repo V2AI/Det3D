@@ -428,7 +428,8 @@ def do_coco_style_eval(
     min_overlaps = np.zeros([10, *overlap_ranges.shape[1:]])
     for i in range(overlap_ranges.shape[1]):
         for j in range(overlap_ranges.shape[2]):
-            min_overlaps[:, i, j] = np.linspace(*overlap_ranges[:, i, j])
+            start, stop, num = overlap_ranges[:, i, j]
+            min_overlaps[:, i, j] = np.linspace(start, stop, int(num))
     mAP_bbox, mAP_bev, mAP_3d, mAP_aos = do_eval_v2(
         gt_annos,
         dt_annos,
