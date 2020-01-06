@@ -265,7 +265,7 @@ def train_detector(model, dataset, cfg, distributed=False, validate=False, logge
     total_steps = cfg.total_epochs * len(data_loaders[0])
     # print(f"total_steps: {total_steps}")
 
-    if cfg.optimizer.type in ('rms_prop_optimizer', 'momentum_optimizer', 'adam'):
+    if cfg.optimizer.type in ('rms_prop', 'momentum', 'adam'):
         optimizer = build_fastai_optimizer(cfg.optimizer, model)
     else:
         optimizer = build_optimizer(model, cfg.optimizer)
