@@ -1,4 +1,4 @@
-##Installation
+## Installation
 
 ### Requirements
 
@@ -20,7 +20,7 @@ we have tested the following versions of OS and softwares:
 - CUDA: 10.0
 - CUDNN: 7.5.0
 
-###Install Det3D
+### Install Det3D
 
 a. Clone the Det3D repository
 
