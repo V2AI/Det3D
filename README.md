@@ -60,20 +60,3 @@ Det3D is released under the MIT license.
 * [mmdetection](https://github.com/open-mmlab/mmdetection)
 * [second.pytorch](https://github.com/traveller59/second.pytorch)
 * [maskrcnn_benchmark](https://github.com/facebookresearch/maskrcnn-benchmark)
-
-## Citation
-
-If you use this toolbox or benchmark in your research, please cite this project.
-
-```BIB
-@article{CBGS,
-  author    = {Benjin Zhu and
-               Zhengkai Jiang and
-               Xiangxin Zhou and
-               Zeming Li and
-               Gang Yu},
-  title     = {Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection},
-  journal   = {arXiv preprint arXiv:1908.094925},
-  year      = {2019},
-}
-```
