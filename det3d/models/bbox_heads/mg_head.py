@@ -1035,7 +1035,7 @@ class MultiGroupHead(nn.Module):
                     dir_labels = selected_dir_labels
                     opp_labels = (
                         (box_preds[..., -1] - self.direction_offset) > 0
-                    ) ^ dir_labels.byte()
+                    ) ^ dir_labels.bool()
                     box_preds[..., -1] += torch.where(
                         opp_labels,
                         torch.tensor(np.pi).type_as(box_preds),
