@@ -1,10 +1,10 @@
 ---
-name: "\U0001F680Feature Request"
+name: "Feature Request"
 about: Submit a proposal/request for a new Det3D feature
 
 ---
 
-## 🚀 Feature
+## Feature
 <!-- A clear and concise description of the feature proposal -->
 
 ## Motivation

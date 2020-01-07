@@ -1,19 +1,17 @@
 ---
-name: "❓How to do something?"
+name: "How to do something?"
 about: How to do X with Det3D? How Det3D does X?
 
 ---
 
-## ❓ How to use Det3D
+## How to use Det3D
 
 Questions like:
 
 1. How to do X with Det3D?
 2. How Det3D does X?
 
-Example:
-
-​      How to visualize detection result with Det3D?
+Example: How to visualize detection result with Det3D?
 
 NOTE:
 
