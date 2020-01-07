@@ -1,6 +1,6 @@
 ---
 name: "Unexpected Problems / Bugs"
-about: Report unexpected problems or bugs in detectron2
+about: Report unexpected problems or bugs in Det3D
 
 ---
 
