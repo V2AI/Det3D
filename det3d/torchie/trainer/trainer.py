@@ -475,7 +475,7 @@ class Trainer(object):
     def resume(self, checkpoint, resume_optimizer=True, map_location="default"):
         if map_location == "default":
             checkpoint = self.load_checkpoint(
-                checkpoint, map_location=torch.cuda.current_device()
+                checkpoint, map_location=torch.device(torch.cuda.current_device())
             )
         else:
             checkpoint = self.load_checkpoint(checkpoint, map_location=map_location)
