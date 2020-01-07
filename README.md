@@ -21,13 +21,31 @@ Please refer to [GETTING_START.md](GETTING_START.md).
 
 ## Model Zoo and Baselines
 
-| Model                                                        | Dataset        | Result                                                       |
-| :----------------------------------------------------------- | -------------- | :----------------------------------------------------------- |
-| [Second](examples/second/configs/kitti_car_vfev3_spmiddlefhd_rpn1_mghead_syncbn.py) | KITTI (val)    | car     AP @0.70, 0.70,  0.70:<br/>bbox  AP:90.54, 89.35, 88.43<br/>bev     AP:89.89, 87.75, 86.81<br/>3d       AP:87.96, 78.28, 76.99<br/>aos     AP:90.34, 88.81, 87.66 |
-| [PointPillars](examples/point_pillars/configs/kitti_point_pillars_mghead_syncbn.py) | KITTI (val)    | car     AP@0.70,  0.70,  0.70:<br/>bbox  AP:90.63, 88.86, 87.35<br/>bev     AP:89.75, 86.15, 83.00<br/>3d      AP:85.75, 75.68, 68.93<br/>aos    AP:90.48, 88.36, 86.58 |
-| [PointPillars](examples/point_pillars/configs/nusc_all_point_pillars_mghead_syncbn.pykitti_point_pillars_mghead_syncbn.py) | NuScenes (val) | **To Be Released**                                           |
-| [CGBS](examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) | NuScenes (val) | **To Be Released**                                           |
-| [CGBS](examples/cbgs/configs/lyft_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) | Lyft (val)     | **To Be Released**                                           |
+### [Second](examples/second/configs/kitti_car_vfev3_spmiddlefhd_rpn1_mghead_syncbn.py) on KITTI(val) Dataset
+
+```
+car  AP @0.70, 0.70,  0.70:
+bbox AP:90.54, 89.35, 88.43
+bev  AP:89.89, 87.75, 86.81
+3d   AP:87.96, 78.28, 76.99
+aos  AP:90.34, 88.81, 87.66
+```
+
+### [PointPillars](examples/point_pillars/configs/kitti_point_pillars_mghead_syncbn.py) on KITTI(val) Dataset
+
+```	
+car  AP@0.70,  0.70,  0.70:
+bbox AP:90.63, 88.86, 87.35
+bev  AP:89.75, 86.15, 83.00
+3d   AP:85.75, 75.68, 68.93
+aos  AP:90.48, 88.36, 86.58
+```
+
+### To Be Released
+
+1. [PointPillars](examples/point_pillars/configs/nusc_all_point_pillars_mghead_syncbn.py) on NuScenes(val) Dataset
+2. [CGBS](examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on NuScenes(val) Dataset
+3. [CGBS](examples/cbgs/configs/lyft_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on Lyft(val) Dataset
 
 ## Currently Support
 
