@@ -68,4 +68,13 @@ $ cd Det3D
 $ python setup.py build develop
 ```
 
-if  **ModuleNotFoundError: No module named 'det3d.ops.nms.nms'** occurs, just run the command above for another one time.
+### Common Installation Issues
+
+#### ModuleNotFoundError: No module named 'det3d.ops.nms.nms' when installing det3d
+
+Run `python setup.py build develop` again.
+
+#### "values of 'package_data' dict" must be a list of strings (got '*.json') when installing nuscenes-devikit
+
+Use `setuptools 39.1.0 `
+

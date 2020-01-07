@@ -128,3 +128,8 @@ To test a model with `./tools/scripts/test.sh`, run:
 
 Where `CHECKPOINT` represents the path of model file.
 
+### Common Issues
+
+##### Velocity is NaN or Loss is NaN when training on NuScenes
+
+Use nusenes-devkit we provided instead of the official version.
