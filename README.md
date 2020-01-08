@@ -17,7 +17,7 @@ Please refer to [INSTALL.md](INSTALL.md).
 
 ## Quick Start
 
-Please refer to [GETTING_START.md](GETTING_START.md).
+Please refer to [GETTING_STARTED.md](GETTING_STARTED.md).
 
 ## Model Zoo and Baselines
 
