@@ -237,7 +237,10 @@ data = dict(
 
 # optimizer
 optimizer = dict(
-    type="adam", amsgrad=0.0, wd=0.01, fixed_wd=True, moving_average=False,
+    TYPE="adam",
+    VALUE=dict(amsgrad=0.0, wd=0.01),
+    FIXED_WD=True,
+    MOVING_AVERAGE=False,
 )
 """training hooks """
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))

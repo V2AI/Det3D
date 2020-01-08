@@ -265,9 +265,11 @@ def train_detector(model, dataset, cfg, distributed=False, validate=False, logge
     total_steps = cfg.total_epochs * len(data_loaders[0])
     # print(f"total_steps: {total_steps}")
 
-    if cfg.optimizer.type in ('rms_prop', 'momentum', 'adam'):
+    if hasattr(cfg.optimizer, 'TYPE'):
+        assert cfg.optimizer.TYPE in ('rms_prop', 'momentum', 'adam')
         optimizer = build_fastai_optimizer(cfg.optimizer, model)
     else:
+        assert hasattr(cfg.optimizer, 'type')
         optimizer = build_optimizer(model, cfg.optimizer)
     if hasattr(cfg.lr_config, 'type'):
         lr_scheduler = _create_learning_rate_scheduler(
