@@ -191,12 +191,12 @@ def create_lyft_infos(root_path, version="trainval"):
 
     if test:
         print(f"test sample: {len(train_lyft_infos)}")
-        with open(data_path / "lyft_info_test.pkl", "wb") as f:
+        with open(root_path / "lyft_info_test.pkl", "wb") as f:
             pickle.dump(train_lyft_infos, f)
     else:
         print(f"train sample: {len(train_lyft_infos)}")
         print(f"val sample: {len(val_lyft_infos)}")
-        with open(data_path / "lyft_info_train.pkl", "wb") as f:
+        with open(root_path / "lyft_info_train.pkl", "wb") as f:
             pickle.dump(train_lyft_infos, f)
-        with open(data_path / "lyft_info_val.pkl", "wb") as f:
+        with open(root_path / "lyft_info_val.pkl", "wb") as f:
             pickle.dump(val_lyft_infos, f)
