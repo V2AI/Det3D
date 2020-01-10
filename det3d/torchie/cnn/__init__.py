@@ -1,6 +1,3 @@
-from .alexnet import AlexNet
-from .resnet import ResNet, make_res_layer
-from .vgg import VGG, make_vgg_layer
 from .weight_init import (
     caffe2_xavier_init,
     constant_init,
@@ -11,11 +8,6 @@ from .weight_init import (
 )
 
 __all__ = [
-    "AlexNet",
-    "VGG",
-    "make_vgg_layer",
-    "ResNet",
-    "make_res_layer",
     "constant_init",
     "xavier_init",
     "normal_init",
