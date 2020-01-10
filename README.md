@@ -82,9 +82,9 @@ aos  AP:90.48, 88.36, 86.58
 
 ## License
 
-Det3D is released under the [MIT licenes](LICENES).
+Det3D is released under the [Apache licenes](LICENES).
 
-## Acknowlegement
+## Acknowledgement
 
 * [mmdetection](https://github.com/open-mmlab/mmdetection) 
 * [second.pytorch](https://github.com/traveller59/second.pytorch)
