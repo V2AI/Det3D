@@ -87,5 +87,6 @@ Det3D is released under the [Apache licenes](LICENES).
 ## Acknowledgement
 
 * [mmdetection](https://github.com/open-mmlab/mmdetection) 
+* [mmcv](https://github.com/open-mmlab/mmcv)
 * [second.pytorch](https://github.com/traveller59/second.pytorch)
 * [maskrcnn_benchmark](https://github.com/facebookresearch/maskrcnn-benchmark)
