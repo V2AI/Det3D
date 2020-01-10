@@ -6,9 +6,6 @@ A general 3D Object Detection codebase in PyTorch
 * Support Waymo Dataset.
 * Add other 3D detection / segmentation models, such as VoteNet, STD, etc.
 
-## Advertisement
-We (Base Detection @ **Megvii Research**) are hiring interns, if you are interested in 3D Object Deteciton, Segmentaion or 6D Pose Estimation, you can send resume to poodarchu@gmail.com or zhubenjin@megvii.com.
-
 ## Introduction
 
 Det3D is the first 3D Object Detection toolbox which provides off the box implementations of many 3D object detection algorithms such as PointPillars, SECOND, PIXOR, etc, as well as state-of-the-art methods on major benchmarks like KITTI(ViP) and nuScenes(CBGS). Key features of Det3D include the following aspects:
@@ -21,7 +18,7 @@ Det3D is the first 3D Object Detection toolbox which provides off the box implem
 
 ## Installation
 
-Please refer to [INSTALL.md](INSTALL.md).
+Please refer to [INSTALATION.md](INSTALLATION.md).
 
 ## Quick Start
 
@@ -89,6 +86,6 @@ Det3D is released under the [MIT licenes](LICENES).
 
 ## Acknowlegement
 
-* [mmdetection](https://github.com/open-mmlab/mmdetection)
+* [mmdetection](https://github.com/open-mmlab/mmdetection) 
 * [second.pytorch](https://github.com/traveller59/second.pytorch)
 * [maskrcnn_benchmark](https://github.com/facebookresearch/maskrcnn-benchmark)
