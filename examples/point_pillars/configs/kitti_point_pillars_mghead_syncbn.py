@@ -6,6 +6,8 @@ from det3d.utils.config_tool import get_downsample_factor
 
 # norm_cfg = dict(type='SyncBN', eps=1e-3, momentum=0.01)
 norm_cfg = None
+pc_range = [0, -39.68, -3, 69.12, 39.68, 1]
+voxel_size = [0.16, 0.16, 4.0]
 
 tasks = [
     dict(num_class=1, class_names=["Car",],),
@@ -20,7 +22,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[1.6, 3.9, 1.56],
-            anchor_ranges=[0, -40.0, -1.0, 70.4, 40.0, -1.0],
+            anchor_ranges=[0, -39.68, -1.0, 69.12, 39.68, -1.0],
             rotations=[0, 1.57],
             matched_threshold=0.6,
             unmatched_threshold=0.45,
@@ -45,6 +47,8 @@ model = dict(
     reader=dict(
         type="PillarFeatureNet",
         num_filters=[64],
+        voxel_size=voxel_size,
+        pc_range=pc_range,
         with_distance=False,
         norm_cfg=norm_cfg,
     ),
@@ -156,8 +160,8 @@ val_preprocessor = dict(
 )
 
 voxel_generator = dict(
-    range=[0, -39.68, -3, 69.12, 39.68, 1],
-    voxel_size=[0.16, 0.16, 4.0],
+    range=pc_range,
+    voxel_size=voxel_size,
     max_points_in_voxel=100,
     max_voxel_num=12000,
 )
