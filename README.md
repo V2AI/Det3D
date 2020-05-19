@@ -26,6 +26,9 @@ Please refer to [GETTING_STARTED.md](GETTING_STARTED.md).
 
 ## Model Zoo and Baselines
 
+### [CBGS](https://github.com/poodarchu/Det3D/blob/master/examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py)
+Model checkpoint, training log and prediction results have been provided, please check [CBGS README](https://github.com/poodarchu/Det3D/tree/master/examples/cbgs) for details.
+
 ### [Second](examples/second/configs/kitti_car_vfev3_spmiddlefhd_rpn1_mghead_syncbn.py) on KITTI(val) Dataset
 
 ```
