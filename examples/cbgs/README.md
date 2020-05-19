@@ -27,6 +27,7 @@ More details of the challenge can be found at [nuScenes Detection Leaderboard](h
 ### Trained Models
 
 * Model Checkpoint: [LINK](https://drive.google.com/open?id=11RmTy6fCgD8soXUcLr2zHaRe6aV4yCuI)
+* Training Log: [LOG.txt](https://drive.google.com/open?id=12mf4qYLg7i7mTu5UFK-zhTjmzwQ5hfZ1)
 * Detection Results Of [Train](https://drive.google.com/open?id=1SIVtKeGw_rVBZgJ4vSuQ4gSSqbdevYvD)/[Val](https://drive.google.com/open?id=1Zb1jPYzRY4_7oW7PgII6i673RLrdgZx2)/[Test](https://drive.google.com/open?id=1QbseUsG5w0AJtMRxPvD2Pa2BsB2OS3Y2) Split.
 
 The provided checkpoint is a single model with 51.91% mAP and 62.83% NDS. Its input grid size is (0.05m, 0.05m, 0.2m). The cell below shows result details on Val Split.
