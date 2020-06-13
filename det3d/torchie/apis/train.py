@@ -7,6 +7,7 @@ from functools import partial
 import apex
 import numpy as np
 import torch
+from det3d.builder import build_optimizer as build_fastai_optimizer
 from det3d.builder import _create_learning_rate_scheduler
 
 # from det3d.datasets.kitti.eval_hooks import KittiDistEvalmAPHook, KittiEvalmAPHookV2
@@ -172,26 +173,6 @@ def get_layer_groups(m):
     return [nn.Sequential(*flatten_model(m))]
 
 
-def build_one_cycle_optimizer(model, optimizer_config):
-    if optimizer_config.fixed_wd:
-        optimizer_func = partial(
-            torch.optim.Adam, betas=(0.9, 0.99), amsgrad=optimizer_config.amsgrad
-        )
-    else:
-        optimizer_func = partial(torch.optim.Adam, amsgrad=optimizer_cfg.amsgrad)
-
-    optimizer = OptimWrapper.create(
-        optimizer_func,
-        3e-3,
-        get_layer_groups(model),
-        wd=optimizer_config.wd,
-        true_wd=optimizer_config.fixed_wd,
-        bn_wd=True,
-    )
-
-    return optimizer
-
-
 def build_optimizer(model, optimizer_cfg):
     """Build optimizer from configs.
     Args:
@@ -284,15 +265,18 @@ def train_detector(model, dataset, cfg, distributed=False, validate=False, logge
     total_steps = cfg.total_epochs * len(data_loaders[0])
     # print(f"total_steps: {total_steps}")
 
-    if cfg.lr_config.type == "one_cycle":
-        # build trainer
-        optimizer = build_one_cycle_optimizer(model, cfg.optimizer)
+    if hasattr(cfg.optimizer, 'TYPE'):
+        assert cfg.optimizer.TYPE in ('rms_prop', 'momentum', 'adam')
+        optimizer = build_fastai_optimizer(cfg.optimizer, model)
+    else:
+        assert hasattr(cfg.optimizer, 'type')
+        optimizer = build_optimizer(model, cfg.optimizer)
+    if hasattr(cfg.lr_config, 'type'):
         lr_scheduler = _create_learning_rate_scheduler(
             optimizer, cfg.lr_config, total_steps
         )
         cfg.lr_config = None
     else:
-        optimizer = build_optimizer(model, cfg.optimizer)
         lr_scheduler = None
 
     # put model on gpus

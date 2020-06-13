@@ -110,14 +110,14 @@ def build_optimizer(optimizer_config, net, name=None, mixed=False, loss_scale=51
     optimizer_type = optimizer_config.TYPE
     config = optimizer_config.VALUE
 
-    if optimizer_type == "rms_prop_optimizer":
+    if optimizer_type == "rms_prop":
         optimizer_func = partial(
             torch.optim.RMSprop,
             alpha=config.decay,
             momentum=config.momentum_optimizer_value,
             eps=config.epsilon,
         )
-    elif optimizer_type == "momentum_optimizer":
+    elif optimizer_type == "momentum":
         optimizer_func = partial(
             torch.optim.SGD,
             momentum=config.momentum_optimizer_value,
@@ -136,7 +136,7 @@ def build_optimizer(optimizer_config, net, name=None, mixed=False, loss_scale=51
         optimizer_func,
         3e-3,
         get_layer_groups(net),
-        wd=config.WD,
+        wd=config.wd,
         true_wd=optimizer_config.FIXED_WD,
         bn_wd=True,
     )
@@ -172,11 +172,11 @@ def build_lr_scheduler(optimizer, optimizer_config, total_step):
     optimizer_type = optimizer_config.type
     config = optimizer_config
 
-    if optimizer_type == "rms_prop_optimizer":
+    if optimizer_type == "rms_prop":
         lr_scheduler = _create_learning_rate_scheduler(
             config, optimizer, total_step=total_step
         )
-    elif optimizer_type == "momentum_optimizer":
+    elif optimizer_type == "momentum":
         lr_scheduler = _create_learning_rate_scheduler(
             config, optimizer, total_step=total_step
         )
