@@ -826,6 +826,34 @@ def random_flip(gt_boxes, points, probability=0.5):
     return gt_boxes, points
 
 
+def random_flip_both(gt_boxes, points, probability=0.5):
+    # x flip 
+    enable = np.random.choice(
+        [False, True], replace=False, p=[1 - probability, probability]
+    )
+    if enable:
+        gt_boxes[:, 1] = -gt_boxes[:, 1]
+        gt_boxes[:, -1] = -gt_boxes[:, -1] + np.pi
+        points[:, 1] = -points[:, 1]
+        if gt_boxes.shape[1] > 7:  
+            gt_boxes[:, 7] = -gt_boxes[:, 7]
+
+    # y flip 
+    enable = np.random.choice(
+        [False, True], replace=False, p=[1 - probability, probability]
+    )
+    if enable:
+        gt_boxes[:, 0] = -gt_boxes[:, 0]
+        points[:, 0] = -points[:, 0]
+
+        gt_boxes[:, -1] = -gt_boxes[:, -1] + 2*np.pi  
+
+        if gt_boxes.shape[1] > 7: 
+            gt_boxes[:, 6] = -gt_boxes[:, 6]
+
+    return gt_boxes, points
+
+
 def global_scaling_v2(gt_boxes, points, min_scale=0.95, max_scale=1.05):
     noise_scale = np.random.uniform(min_scale, max_scale)
     points[:, :3] *= noise_scale

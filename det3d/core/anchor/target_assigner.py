@@ -93,7 +93,7 @@ class TargetAssigner:
                 prune_anchor_fn = None
 
             targets = create_target_np(
-                anchor_dict["anchors"].reshape(-1, self.box_coder.code_size),
+                anchor_dict["anchors"].reshape(-1, self.box_coder.n_dim),  # to work with the angle vector encoding 
                 gt_boxes[mask],
                 similarity_fn,
                 box_encoding_fn,

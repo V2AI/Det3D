@@ -510,6 +510,9 @@ def _fill_trainval_infos(nusc, train_scenes, val_scenes, test=False, nsweeps=10)
                 nusc.get("sample_annotation", token) for token in sample["anns"]
             ]
 
+            # the filtering gives 0.5~1 map improvement 
+            mask = np.array([(anno['num_lidar_pts'] + anno['num_radar_pts'])>0 for anno in annotations], dtype=bool).reshape(-1)
+
             locs = np.array([b.center for b in ref_boxes]).reshape(-1, 3)
             dims = np.array([b.wlh for b in ref_boxes]).reshape(-1, 3)
             # rots = np.array([b.orientation.yaw_pitch_roll[0] for b in ref_boxes]).reshape(-1, 1)
@@ -526,10 +529,10 @@ def _fill_trainval_infos(nusc, train_scenes, val_scenes, test=False, nsweeps=10)
 
             assert len(annotations) == len(gt_boxes) == len(velocity)
 
-            info["gt_boxes"] = gt_boxes
-            info["gt_boxes_velocity"] = velocity
-            info["gt_names"] = np.array([general_to_detection[name] for name in names])
-            info["gt_boxes_token"] = tokens
+            info["gt_boxes"] = gt_boxes[mask, :]
+            info["gt_boxes_velocity"] = velocity[mask, :]
+            info["gt_names"] = np.array([general_to_detection[name] for name in names])[mask]
+            info["gt_boxes_token"] = tokens[mask]
 
         if sample["scene_token"] in train_scenes:
             train_nusc_infos.append(info)
@@ -602,7 +605,7 @@ def create_nuscenes_infos_test(root_path, version="v1.0-trainval", nsweeps=10):
     if test:
         print(f"test sample: {len(train_nusc_infos)}")
         with open(
-            root_path / "infos_test_{:02d}sweeps_withvelo.pkl".format(nsweeps), "wb"
+            root_path / "infos_test_{:02d}sweeps_withvelo_filter_True.pkl".format(nsweeps), "wb"
         ) as f:
             pickle.dump(train_nusc_infos, f)
     else:
@@ -610,11 +613,11 @@ def create_nuscenes_infos_test(root_path, version="v1.0-trainval", nsweeps=10):
             f"train sample: {len(train_nusc_infos)}, val sample: {len(val_nusc_infos)}"
         )
         with open(
-            root_path / "infos_train_{:02d}sweeps_withvelo.pkl".format(nsweeps), "wb"
+            root_path / "infos_train_{:02d}sweeps_withvelo_filter_True.pkl".format(nsweeps), "wb"
         ) as f:
             pickle.dump(train_nusc_infos, f)
         with open(
-            root_path / "infos_val_{:02d}sweeps_withvelo.pkl".format(nsweeps), "wb"
+            root_path / "infos_val_{:02d}sweeps_withvelo_filter_True.pkl".format(nsweeps), "wb"
         ) as f:
             pickle.dump(val_nusc_infos, f)
 
@@ -664,7 +667,7 @@ def create_nuscenes_infos(root_path, version="v1.0-trainval", nsweeps=10):
     if test:
         print(f"test sample: {len(train_nusc_infos)}")
         with open(
-            root_path / "infos_test_{:02d}sweeps_withvelo.pkl".format(nsweeps), "wb"
+            root_path / "infos_test_{:02d}sweeps_withvelo_filter_True.pkl".format(nsweeps), "wb"
         ) as f:
             pickle.dump(train_nusc_infos, f)
     else:
@@ -672,11 +675,11 @@ def create_nuscenes_infos(root_path, version="v1.0-trainval", nsweeps=10):
             f"train sample: {len(train_nusc_infos)}, val sample: {len(val_nusc_infos)}"
         )
         with open(
-            root_path / "infos_train_{:02d}sweeps_withvelo.pkl".format(nsweeps), "wb"
+            root_path / "infos_train_{:02d}sweeps_withvelo_filter_True.pkl".format(nsweeps), "wb"
         ) as f:
             pickle.dump(train_nusc_infos, f)
         with open(
-            root_path / "infos_val_{:02d}sweeps_withvelo.pkl".format(nsweeps), "wb"
+            root_path / "infos_val_{:02d}sweeps_withvelo_filter_True.pkl".format(nsweeps), "wb"
         ) as f:
             pickle.dump(val_nusc_infos, f)
 
