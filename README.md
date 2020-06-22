@@ -1,12 +1,8 @@
 # Det3D
 
-A general 3D Object Detection codebase in PyTorch
+A general 3D Object Detection codebase in PyTorch.
 
-## Call for contribution.
-* Support Waymo Dataset.
-* Add other 3D detection / segmentation models, such as VoteNet, STD, etc.
-
-## Introduction
+## 1. Introduction
 
 Det3D is the first 3D Object Detection toolbox which provides off the box implementations of many 3D object detection algorithms such as PointPillars, SECOND, PIXOR, etc, as well as state-of-the-art methods on major benchmarks like KITTI(ViP) and nuScenes(CBGS). Key features of Det3D include the following aspects:
 
@@ -16,44 +12,26 @@ Det3D is the first 3D Object Detection toolbox which provides off the box implem
 * DDP & SyncBN
 
 
-## Installation
+## 2. Installation
 
 Please refer to [INSTALATION.md](INSTALLATION.md).
 
-## Quick Start
+## 3. Quick Start
 
 Please refer to [GETTING_STARTED.md](GETTING_STARTED.md).
 
-## Model Zoo and Baselines
+## 4. Model Zoo
 
-### [CBGS](https://github.com/poodarchu/Det3D/blob/master/examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on nuScenes(val) Dataset
+### 4.1 nuScenes
 
-```
-mAP: 0.4990
-mATE: 0.3353
-mASE: 0.2563
-mAOE: 0.3230
-mAVE: 0.2505
-mAAE: 0.1969
-NDS: 0.6133
-```
+|             | mAP  | mATE | mASE | mAOE | mAVE | mAAE | NDS | ckpt |
+| ----------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| [CBGS](https://github.com/poodarchu/Det3D/blob/master/examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) | 49.9 | 0.335 | 0.256 | 0.323 | 0.251 | 0.197 | 61.3 | [link](https://drive.google.com/drive/folders/1rhamAqegE9iOp18tzQVam4rOMhHjjnRM?usp=sharing) |
+| [PointPillar](examples/point_pillars/configs/nusc_all_point_pillars_mghead_syncbn.py) | 41.8 | 0.363 | 0.264 | 0.377 | 0.288 | 0.198 | 56.0 | [link](https://drive.google.com/drive/folders/1U0bkEQAhcxhDUD42nTCGC0uU0qaTO_Uv?usp=sharing) |
 
-This new model uses a voxel size of (0.1m, 0.1m, 0.2m). The model checkpoint, trianing log and predictions results are available [here](https://drive.google.com/drive/folders/1rhamAqegE9iOp18tzQVam4rOMhHjjnRM?usp=sharing).
 The original model and prediction files are available in the [CBGS README](https://github.com/poodarchu/Det3D/tree/master/examples/cbgs).
 
-### [PointPillars](examples/point_pillars/configs/nusc_all_point_pillars_mghead_syncbn.py) on nuScenes(val) Dataset
-
-```
-mAP: 0.4179
-mATE: 0.3630
-mASE: 0.2636
-mAOE: 0.3770
-mAVE: 0.2877
-mAAE: 0.1983
-NDS: 0.5600
-```
-
-The checkpoint, log and prediction files are available [here](https://drive.google.com/drive/folders/1U0bkEQAhcxhDUD42nTCGC0uU0qaTO_Uv?usp=sharing). 
+### 4.2 KITTI
 
 ### [Second](examples/second/configs/kitti_car_vfev3_spmiddlefhd_rpn1_mghead_syncbn.py) on KITTI(val) Dataset
 
@@ -75,9 +53,14 @@ bev  AP:89.75, 86.15, 83.00
 aos  AP:90.48, 88.36, 86.58
 ```
 
-### To Be Released
 
-1. [CGBS](examples/cbgs/configs/lyft_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on Lyft(val) Dataset
+### 4.3 Lyft
+
+* [Lyft Config](https://github.com/poodarchu/Det3D/blob/master/examples/cbgs/configs/lyft_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py)
+
+### 4.4 Waymo
+
+
 
 ## Currently Support
 
@@ -99,9 +82,18 @@ aos  AP:90.48, 88.36, 86.58
 
 
 ## TODO List
+* To Be Released
+
+  * [ ] [CGBS](examples/cbgs/configs/lyft_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on Lyft(val) Dataset
+
 * Models
+  
   - [ ] PointRCNN
   - [ ] PIXOR
+
+## Call for contribution.
+* Support Waymo Dataset.
+* Add other 3D detection / segmentation models, such as VoteNet, STD, etc.
 
 ## Developers
 
