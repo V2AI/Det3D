@@ -26,8 +26,34 @@ Please refer to [GETTING_STARTED.md](GETTING_STARTED.md).
 
 ## Model Zoo and Baselines
 
-### [CBGS](https://github.com/poodarchu/Det3D/blob/master/examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py)
-Model checkpoint, training log and prediction results have been provided, please check [CBGS README](https://github.com/poodarchu/Det3D/tree/master/examples/cbgs) for details.
+### [CBGS](https://github.com/poodarchu/Det3D/blob/master/examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on nuScenes(val) Dataset
+
+```
+mAP: 0.4990
+mATE: 0.3353
+mASE: 0.2563
+mAOE: 0.3230
+mAVE: 0.2505
+mAAE: 0.1969
+NDS: 0.6133
+```
+
+This new model uses a voxel size of (0.1m, 0.1m, 0.2m). The model checkpoint, trianing log and predictions results are available [here](https://drive.google.com/drive/folders/1rhamAqegE9iOp18tzQVam4rOMhHjjnRM?usp=sharing).
+The original model and prediction files are available in the [CBGS README](https://github.com/poodarchu/Det3D/tree/master/examples/cbgs).
+
+### [PointPillars](examples/point_pillars/configs/nusc_all_point_pillars_mghead_syncbn.py) on nuScenes(val) Dataset
+
+```
+mAP: 0.4179
+mATE: 0.3630
+mASE: 0.2636
+mAOE: 0.3770
+mAVE: 0.2877
+mAAE: 0.1983
+NDS: 0.5600
+```
+
+The checkpoint, log and prediction files are available [here](https://drive.google.com/drive/folders/1U0bkEQAhcxhDUD42nTCGC0uU0qaTO_Uv?usp=sharing). 
 
 ### [Second](examples/second/configs/kitti_car_vfev3_spmiddlefhd_rpn1_mghead_syncbn.py) on KITTI(val) Dataset
 
@@ -51,9 +77,7 @@ aos  AP:90.48, 88.36, 86.58
 
 ### To Be Released
 
-1. [PointPillars](examples/point_pillars/configs/nusc_all_point_pillars_mghead_syncbn.py) on NuScenes(val) Dataset
-2. [CGBS](examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on NuScenes(val) Dataset
-3. [CGBS](examples/cbgs/configs/lyft_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on Lyft(val) Dataset
+1. [CGBS](examples/cbgs/configs/lyft_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on Lyft(val) Dataset
 
 ## Currently Support
 
