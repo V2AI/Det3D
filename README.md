@@ -62,7 +62,7 @@ aos  AP:90.48, 88.36, 86.58
 
 
 
-## Currently Support
+## 5. Functionality
 
 * Models
   - [x] VoxelNet
@@ -81,7 +81,7 @@ aos  AP:90.48, 88.36, 86.58
     - [x] Rotated RoI Align
 
 
-## TODO List
+## 6. TODO List
 * To Be Released
 
   * [ ] [CGBS](examples/cbgs/configs/lyft_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py) on Lyft(val) Dataset
@@ -91,19 +91,19 @@ aos  AP:90.48, 88.36, 86.58
   - [ ] PointRCNN
   - [ ] PIXOR
 
-## Call for contribution.
+## 7. Call for contribution.
 * Support Waymo Dataset.
 * Add other 3D detection / segmentation models, such as VoteNet, STD, etc.
 
-## Developers
+## 8. Developers
 
 [Benjin Zhu](https://github.com/poodarchu/) , [Bingqi Ma](https://github.com/a157801)
 
-## License
+## 9. License
 
 Det3D is released under the [Apache licenes](LICENES).
 
-## Acknowledgement
+## 10. Acknowledgement
 
 * [mmdetection](https://github.com/open-mmlab/mmdetection) 
 * [mmcv](https://github.com/open-mmlab/mmcv)
