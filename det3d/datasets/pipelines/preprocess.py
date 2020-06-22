@@ -199,7 +199,12 @@ class Preprocess(object):
             )
             gt_dict["gt_classes"] = gt_classes
 
-            gt_dict["gt_boxes"], points = prep.random_flip(gt_dict["gt_boxes"], points)
+            if res["type"] in ["NuScenesDataset"]:
+                # double flip gives 3 map improvement for pointppillars on nuScenes 
+                gt_dict["gt_boxes"], points = prep.random_flip_both(gt_dict["gt_boxes"], points)
+            else:
+                gt_dict["gt_boxes"], points = prep.random_flip(gt_dict["gt_boxes"], points)
+            
             gt_dict["gt_boxes"], points = prep.global_rotation(
                 gt_dict["gt_boxes"], points, rotation=self.global_rotation_noise
             )

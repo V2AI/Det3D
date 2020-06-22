@@ -49,6 +49,7 @@ def read_sweep(sweep):
     #                            dtype=np.float32).reshape([-1,
     #                                                       5])[:, :4].T
     points_sweep = read_file(str(sweep["lidar_path"])).T
+    points_sweep = remove_close(points_sweep, min_distance) # remove in its local coordinate 
 
     nbr_points = points_sweep.shape[1]
     if sweep["transform_matrix"] is not None:
@@ -56,7 +57,7 @@ def read_sweep(sweep):
             np.vstack((points_sweep[:3, :], np.ones(nbr_points)))
         )[:3, :]
     # points_sweep[3, :] /= 255
-    points_sweep = remove_close(points_sweep, min_distance)
+    
     curr_times = sweep["time_lag"] * np.ones((1, points_sweep.shape[1]))
 
     return points_sweep.T, curr_times.T

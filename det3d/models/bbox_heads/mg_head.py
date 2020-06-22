@@ -414,7 +414,7 @@ class MultiGroupHead(nn.Module):
         self.num_anchor_per_locs = [2 * n for n in num_classes]
 
         self.box_coder = box_coder
-        box_code_sizes = [box_coder.n_dim] * len(num_classes)
+        box_code_sizes = [box_coder.code_size] * len(num_classes)
 
         self.with_cls = with_cls
         self.with_reg = with_reg
@@ -424,7 +424,11 @@ class MultiGroupHead(nn.Module):
         self.encode_rad_error_by_sin = encode_rad_error_by_sin
         self.encode_background_as_zeros = encode_background_as_zeros
         self.use_sigmoid_score = use_sigmoid_score
-        self.box_n_dim = self.box_coder.n_dim
+        
+        # to work with the angle vector encoding 
+        self.box_n_dim = self.box_coder.code_size
+        self.anchor_dim = self.box_coder.n_dim
+        # self.box_n_dim = self.box_coder.n_dim
 
         self.loss_cls = build_loss(loss_cls)
         self.loss_reg = build_loss(loss_bbox)
@@ -650,7 +654,7 @@ class MultiGroupHead(nn.Module):
                 "cls_neg_loss": cls_neg_loss.detach().cpu(),
                 "dir_loss_reduced": dir_loss.detach().cpu()
                 if self.use_direction_classifier
-                else None,
+                else torch.tensor(0),
                 "cls_loss_reduced": cls_loss_reduced.detach().cpu().mean(),
                 "loc_loss_reduced": loc_loss_reduced.detach().cpu().mean(),
                 "loc_loss_elem": [elem.detach().cpu() for elem in loc_loss_elem],
@@ -714,7 +718,7 @@ class MultiGroupHead(nn.Module):
                 meta_list = example["metadata"]
 
             batch_task_anchors = example["anchors"][task_id].view(
-                batch_size, -1, self.box_n_dim
+                batch_size, -1, self.anchor_dim
             )
 
             if "anchors_mask" not in example:
@@ -1064,7 +1068,7 @@ class MultiGroupHead(nn.Module):
                 dtype = batch_reg_preds.dtype
                 device = batch_reg_preds.device
                 predictions_dict = {
-                    "box3d_lidar": torch.zeros([0, self.box_n_dim], dtype=dtype, device=device),
+                    "box3d_lidar": torch.zeros([0, self.anchor_dim], dtype=dtype, device=device),
                     "scores": torch.zeros([0], dtype=dtype, device=device),
                     "label_preds": torch.zeros(
                         [0], dtype=top_labels.dtype, device=device

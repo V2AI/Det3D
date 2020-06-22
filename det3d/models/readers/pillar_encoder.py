@@ -83,6 +83,7 @@ class PillarFeatureNet(nn.Module):
         self.name = "PillarFeatureNet"
         assert len(num_filters) > 0
 
+        self.num_input = num_input_features
         num_input_features += 5
         if with_distance:
             num_input_features += 1
@@ -117,7 +118,7 @@ class PillarFeatureNet(nn.Module):
         dtype = features.dtype
 
         # Find distance of x, y, and z from cluster center
-        features = features[:, :, :4]
+        # features = features[:, :, :self.num_input]
         points_mean = features[:, :, :3].sum(dim=1, keepdim=True) / num_voxels.type_as(
             features
         ).view(-1, 1, 1)
@@ -126,10 +127,10 @@ class PillarFeatureNet(nn.Module):
         # Find distance of x, y, and z from pillar center
         # f_center = features[:, :, :2]
         f_center = torch.zeros_like(features[:, :, :2])
-        f_center[:, :, 0] = f_center[:, :, 0] - (
+        f_center[:, :, 0] = features[:, :, 0] - (
             coors[:, 3].to(dtype).unsqueeze(1) * self.vx + self.x_offset
         )
-        f_center[:, :, 1] = f_center[:, :, 1] - (
+        f_center[:, :, 1] = features[:, :, 1] - (
             coors[:, 2].to(dtype).unsqueeze(1) * self.vy + self.y_offset
         )
 
@@ -189,6 +190,7 @@ class PointPillarsScatter(nn.Module):
 
             # Only include non-empty pillars
             batch_mask = coords[:, 0] == batch_itt
+
             this_coords = coords[batch_mask, :]
             indices = this_coords[:, 2] * self.nx + this_coords[:, 3]
             indices = indices.type(torch.long)

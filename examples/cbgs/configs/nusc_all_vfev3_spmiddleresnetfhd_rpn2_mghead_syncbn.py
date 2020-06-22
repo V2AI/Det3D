@@ -4,7 +4,6 @@ import logging
 from det3d.builder import build_box_coder
 from det3d.utils.config_tool import get_downsample_factor
 
-# norm_cfg = dict(type='SyncBN', eps=1e-3, momentum=0.01)
 norm_cfg = None
 
 tasks = [
@@ -25,7 +24,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[1.97, 4.63, 1.74],
-            anchor_ranges=[-50.4, -50.4, -0.95, 50.4, 50.4, -0.95],
+            anchor_ranges=[-51.2, -51.2, -0.95, 51.2, 51.2, -0.95],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.6,
@@ -35,7 +34,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.51, 6.93, 2.84],
-            anchor_ranges=[-50.4, -50.4, -0.40, 50.4, 50.4, -0.40],
+            anchor_ranges=[-51.2, -51.2, -0.40, 51.2, 51.2, -0.40],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.55,
@@ -45,7 +44,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.85, 6.37, 3.19],
-            anchor_ranges=[-50.4, -50.4, -0.225, 50.4, 50.4, -0.225],
+            anchor_ranges=[-51.2, -51.2, -0.225, 51.2, 51.2, -0.225],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.5,
@@ -55,7 +54,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.94, 10.5, 3.47],
-            anchor_ranges=[-50.4, -50.4, -0.085, 50.4, 50.4, -0.085],
+            anchor_ranges=[-51.2, -51.2, -0.085, 51.2, 51.2, -0.085],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.55,
@@ -65,7 +64,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.90, 12.29, 3.87],
-            anchor_ranges=[-50.4, -50.4, 0.115, 50.4, 50.4, 0.115],
+            anchor_ranges=[-51.2, -51.2, 0.115, 51.2, 51.2, 0.115],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.5,
@@ -75,7 +74,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[2.53, 0.50, 0.98],
-            anchor_ranges=[-50.4, -50.4, -1.33, 50.4, 50.4, -1.33],
+            anchor_ranges=[-51.2, -51.2, -1.33, 51.2, 51.2, -1.33],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.55,
@@ -85,7 +84,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[0.77, 2.11, 1.47],
-            anchor_ranges=[-50.4, -50.4, -1.085, 50.4, 50.4, -1.085],
+            anchor_ranges=[-51.2, -51.2, -1.085, 51.2, 51.2, -1.085],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.5,
@@ -95,7 +94,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[0.60, 1.70, 1.28],
-            anchor_ranges=[-50.4, -50.4, -1.18, 50.4, 50.4, -1.18],
+            anchor_ranges=[-51.2, -51.2, -1.18, 51.2, 51.2, -1.18],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.5,
@@ -105,7 +104,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[0.67, 0.73, 1.77],
-            anchor_ranges=[-50.4, -50.4, -0.935, 50.4, 50.4, -0.935],
+            anchor_ranges=[-51.2, -51.2, -0.935, 51.2, 51.2, -0.935],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.6,
@@ -115,7 +114,7 @@ target_assigner = dict(
         dict(
             type="anchor_generator_range",
             sizes=[0.41, 0.41, 1.07],
-            anchor_ranges=[-50.4, -50.4, -1.285, 50.4, 50.4, -1.285],
+            anchor_ranges=[-51.2, -51.2, -1.285, 51.2, 51.2, -1.285],
             rotations=[0, 1.57],
             velocities=[0, 0],
             matched_threshold=0.6,
@@ -131,7 +130,7 @@ target_assigner = dict(
 )
 
 box_coder = dict(
-    type="ground_box3d_coder", n_dim=9, linear_dim=False, encode_angle_vector=False,
+    type="ground_box3d_coder", n_dim=9, linear_dim=False, encode_angle_vector=True,
 )
 
 # model settings
@@ -140,7 +139,6 @@ model = dict(
     pretrained=None,
     reader=dict(
         type="VoxelFeatureExtractorV3",
-        # type='SimpleVoxel',
         num_input_features=5,
         norm_cfg=norm_cfg,
     ),
@@ -159,7 +157,6 @@ model = dict(
         logger=logging.getLogger("RPN"),
     ),
     bbox_head=dict(
-        # type='RPNHead',
         type="MultiGroupHead",
         mode="3d",
         in_channels=sum([256, 256]),
@@ -176,17 +173,12 @@ model = dict(
         loss_bbox=dict(
             type="WeightedSmoothL1Loss",
             sigma=3.0,
-            code_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 0.2, 1.0],
+            code_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 0.2, 1.0, 1.0],
             codewise=True,
-            loss_weight=1.0,
+            loss_weight=0.25,
         ),
-        encode_rad_error_by_sin=True,
-        loss_aux=dict(
-            type="WeightedSoftmaxClassificationLoss",
-            name="direction_classifier",
-            loss_weight=0.2,
-        ),
-        direction_offset=0.785,
+        encode_rad_error_by_sin=False,
+        loss_aux=None,
     ),
 )
 
@@ -205,7 +197,7 @@ test_cfg = dict(
         use_rotate_nms=True,
         use_multi_class_nms=False,
         nms_pre_max_size=1000,
-        nms_post_max_size=80,
+        nms_post_max_size=83,
         nms_iou_threshold=0.2,
     ),
     score_threshold=0.1,
@@ -215,13 +207,13 @@ test_cfg = dict(
 
 # dataset settings
 dataset_type = "NuScenesDataset"
-n_sweeps = 10
-data_root = "/data/Datasets/nuScenes"
+nsweeps = 10
+data_root = "data/nuScenes"
 
 db_sampler = dict(
     type="GT-AUG",
     enable=False,
-    db_info_path="/data/Datasets/nuScenes/dbinfos_train_10sweeps_withvelo.pkl",
+    db_info_path="data/nuScenes/dbinfos_train_10sweeps_withvelo.pkl",
     sample_groups=[
         dict(car=2),
         dict(truck=3),
@@ -280,7 +272,7 @@ val_preprocessor = dict(
 )
 
 voxel_generator = dict(
-    range=[-50.4, -50.4, -5.0, 50.4, 50.4, 3.0],
+    range=[-51.2, -51.2, -5.0, 51.2, 51.2, 3.0],
     voxel_size=[0.1, 0.1, 0.2],
     max_points_in_voxel=10,
     max_voxel_num=60000,
@@ -304,19 +296,19 @@ test_pipeline = [
     dict(type="Reformat"),
 ]
 
-train_anno = "/data/Datasets/nuScenes/infos_train_10sweeps_withvelo.pkl"
-val_anno = "/data/Datasets/nuScenes/infos_val_10sweeps_withvelo.pkl"
+train_anno = "data/nuScenes/infos_train_10sweeps_withvelo_filter_True.pkl"
+val_anno = "data/nuScenes/infos_val_10sweeps_withvelo_filter_True.pkl"
 test_anno = None
 
 data = dict(
     samples_per_gpu=4,
-    workers_per_gpu=2,
+    workers_per_gpu=8,
     train=dict(
         type=dataset_type,
         root_path=data_root,
         info_path=train_anno,
         ann_file=train_anno,
-        n_sweeps=n_sweeps,
+        nsweeps=nsweeps,
         class_names=class_names,
         pipeline=train_pipeline,
     ),
@@ -326,7 +318,7 @@ data = dict(
         info_path=val_anno,
         test_mode=True,
         ann_file=val_anno,
-        n_sweeps=n_sweeps,
+        nsweeps=nsweeps,
         class_names=class_names,
         pipeline=test_pipeline,
     ),
@@ -335,7 +327,7 @@ data = dict(
         root_path=data_root,
         info_path=test_anno,
         ann_file=test_anno,
-        n_sweeps=n_sweeps,
+        nsweeps=nsweeps,
         class_names=class_names,
         pipeline=test_pipeline,
     ),
@@ -353,7 +345,7 @@ optimizer = dict(
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 # learning policy in training hooks
 lr_config = dict(
-    type="one_cycle", lr_max=0.001, moms=[0.95, 0.85], div_factor=10.0, pct_start=0.4,
+    type="one_cycle", lr_max=0.002, moms=[0.95, 0.85], div_factor=10.0, pct_start=0.4,
 )
 
 checkpoint_config = dict(interval=1)
@@ -362,7 +354,6 @@ log_config = dict(
     interval=5,
     hooks=[
         dict(type="TextLoggerHook"),
-        # dict(type='TensorboardLoggerHook')
     ],
 )
 # yapf:enable
@@ -371,8 +362,8 @@ total_epochs = 20
 device_ids = range(8)
 dist_params = dict(backend="nccl", init_method="env://")
 log_level = "INFO"
-work_dir = "/data/Outputs/MegDet3D_Outputs/SECOND_NUSC"
-load_from = None
-resume_from = None
-workflow = [("train", 1), ("val", 1)]
-# workflow = [('train', 1)]
+work_dir = './work_dirs/{}/'.format(__file__[__file__.rfind('/') + 1:-3])
+load_from = None 
+resume_from = None 
+workflow = [('train', 1)]
+
