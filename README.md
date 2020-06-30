@@ -103,7 +103,18 @@ aos  AP:90.48, 88.36, 86.58
 
 Det3D is released under the [Apache licenes](LICENES).
 
-## 10. Acknowledgement
+## 10. Citation
+Det3D is a derivative codebase of [CBGS](https://arxiv.org/abs/1908.09492), if you find this work useful in your research, please consider cite:
+```
+@article{zhu2019class,
+  title={Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection},
+  author={Zhu, Benjin and Jiang, Zhengkai and Zhou, Xiangxin and Li, Zeming and Yu, Gang},
+  journal={arXiv preprint arXiv:1908.09492},
+  year={2019}
+}
+```
+
+## 11. Acknowledgement
 
 * [mmdetection](https://github.com/open-mmlab/mmdetection) 
 * [mmcv](https://github.com/open-mmlab/mmcv)
