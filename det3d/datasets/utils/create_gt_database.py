@@ -5,9 +5,7 @@ import numpy as np
 
 from det3d.core import box_np_ops
 from det3d.datasets.dataset_factory import get_dataset
-from det3d.torchie import Config
 
-from joblib import Parallel, delayed
 from tqdm import tqdm
 
 dataset_name_map = {
@@ -92,7 +90,6 @@ def create_groundtruth_database(
         elif dataset_class_name == "LYFT":
             points = sensor_data["lidar"]["points"]
 
-        print(points.shape)
         annos = sensor_data["lidar"]["annotations"]
         gt_boxes = annos["boxes"]
         names = annos["names"]
