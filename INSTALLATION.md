@@ -4,7 +4,7 @@
 
 - Linux
 - Python 3.6+
-- PyTorch 1.1 or higher
+- PyTorch 1.1 or 1.3
 - CUDA 10.0 or higher
 - CMake 3.13.2 or higher
 - [APEX](https://github.com/nvidia/apex)
@@ -20,6 +20,7 @@ we have tested the following versions of OS and softwares:
 - PyTorch: 1.1
 - CUDA: 10.0
 - CUDNN: 7.5.0
+
 
 ### Install Requirements
 
@@ -77,4 +78,14 @@ Run `python setup.py build develop` again.
 #### "values of 'package_data' dict" must be a list of strings (got '*.json') when installing nuscenes-devikit
 
 Use `setuptools 39.1.0 `
+
+#### Installing a suitable pytorch version by replacing the previous version
+`pip install torch==1.3.0 torchvision==0.4.1`
+
+#### Upgrading cmake in case if needed
+`sudo apt remove cmake`
+`pip install cmake --upgrade`
+
+#### Installing suitable setuptools version by replacing the previous version
+`pip install setuptools==39.1.0`
 
