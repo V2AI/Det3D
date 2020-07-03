@@ -79,11 +79,15 @@ Run `python setup.py build develop` again.
 
 Use `setuptools 39.1.0 `
 
+#### cannot import PILLOW_VERSION
+`pip install Pillow==6.1`
+
 #### Installing a suitable pytorch version by replacing the previous version
 `pip install torch==1.3.0 torchvision==0.4.1`
 
 #### Upgrading cmake in case if needed
 `sudo apt remove cmake`
+
 `pip install cmake --upgrade`
 
 #### Installing suitable setuptools version by replacing the previous version
