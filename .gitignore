@@ -106,6 +106,6 @@ train.sh
 
 *.o
 
-./det3d/version.py
+det3d/version.py
 
 *.pyc
