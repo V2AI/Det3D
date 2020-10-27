@@ -4,11 +4,11 @@
 
 - Linux
 - Python 3.6+
-- PyTorch 1.1 or 1.3
-- CUDA 10.0 or higher
-- CMake 3.13.2 or higher
+- PyTorch 1.1-1.6
+- CUDA 10.0/10.1
+- **CMake 3.13.2 or higher**
 - [APEX](https://github.com/nvidia/apex)
-- [spconv](https://github.com/traveller59/spconv/commit/73427720a539caf9a44ec58abe3af7aa9ddb8e39) 
+- [spconv](https://github.com/poodarchu/spconv) 
 - [nuscenes-devkit](https://github.com/poodarchu/nuscenes/)
 
 **spconv and nuscenes-devkit should be the specific version from link above**
@@ -38,9 +38,8 @@ $ pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--c
 
 ```bash
  $ sudo apt-get install libboost-all-dev
- $ git clone https://github.com/traveller59/spconv.git --recursive
- $ cd spconv && git checkout 7342772
- $ python setup.py bdist_wheel
+ $ git clone https://github.com/poodarchu/spconv --recursive
+ $ cd spconv && python setup.py bdist_wheel
  $ cd ./dist && pip install *
 ```
 
