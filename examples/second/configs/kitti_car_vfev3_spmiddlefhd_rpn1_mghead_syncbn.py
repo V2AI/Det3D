@@ -119,12 +119,12 @@ test_cfg = dict(
 
 # dataset settings
 dataset_type = "KittiDataset"
-data_root = "/data/Datasets/KITTI/Kitti/object"
+data_root = "/data/Datasets/KITTI"
 
 db_sampler = dict(
     type="GT-AUG",
     enable=True,
-    db_info_path="/data/Datasets/KITTI/Kitti/object/dbinfos_train.pkl",
+    db_info_path="/data/Datasets/KITTI/dbinfos_train.pkl",
     sample_groups=[dict(Car=15,),],
     db_prep_steps=[
         dict(filter_by_min_num_points=dict(Car=5,)),
@@ -183,8 +183,8 @@ test_pipeline = [
     dict(type="Reformat"),
 ]
 
-train_anno = "/data/Datasets/KITTI/Kitti/object/kitti_infos_train.pkl"
-val_anno = "/data/Datasets/KITTI/Kitti/object/kitti_infos_val.pkl"
+train_anno = "/data/Datasets/KITTI/kitti_infos_train.pkl"
+val_anno = "/data/Datasets/KITTI/kitti_infos_val.pkl"
 test_anno = None
 
 data = dict(
