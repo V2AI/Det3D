@@ -4,7 +4,6 @@ import re
 from collections import OrderedDict, defaultdict
 from functools import partial
 
-import apex
 import numpy as np
 import torch
 from det3d.builder import build_optimizer as build_fastai_optimizer
@@ -281,7 +280,6 @@ def train_detector(model, dataset, cfg, distributed=False, validate=False, logge
 
     # put model on gpus
     if distributed:
-        model = apex.parallel.convert_syncbn_model(model)
         model = DistributedDataParallel(
             model.cuda(cfg.local_rank),
             device_ids=[cfg.local_rank],

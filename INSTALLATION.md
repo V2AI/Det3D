@@ -7,7 +7,6 @@
 - PyTorch 1.1-1.6
 - CUDA 10.0/10.1
 - **CMake 3.13.2 or higher**
-- [APEX](https://github.com/nvidia/apex)
 - [spconv](https://github.com/poodarchu/spconv) 
 - [nuscenes-devkit](https://github.com/poodarchu/nuscenes/)
 
@@ -25,14 +24,6 @@ we have tested the following versions of OS and softwares:
 ### Install Requirements
 
 Installation of APEX and spconv should be unver the gpu environment.
-
-#### APEX
-
-```bash
-$ git clone https://github.com/NVIDIA/apex
-$ cd apex
-$ pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
-```
 
 #### spconv
 
