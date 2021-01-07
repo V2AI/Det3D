@@ -3,7 +3,6 @@ import json
 import os
 import sys
 
-import apex
 import numpy as np
 import torch
 import yaml
@@ -107,7 +106,6 @@ def main():
 
     # put model on gpus
     if distributed:
-        model = apex.parallel.convert_syncbn_model(model)
         model = DistributedDataParallel(
             model.cuda(cfg.local_rank),
             device_ids=[cfg.local_rank],
