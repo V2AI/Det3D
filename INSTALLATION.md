@@ -37,9 +37,7 @@ Installation of APEX and spconv should be unver the gpu environment.
 #### nuscenes-devkit
 
 ```bash
-$ git clone https://github.com/poodarchu/nuscenes.git
-$ cd nuscenes
-$ python setup.py install
+pip install nuscenes-devikit
 ```
 
 ### Install Det3D

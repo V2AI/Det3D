@@ -1,3 +1,4 @@
+from typing import Tuple, List
 import sys
 import pickle
 import json
@@ -32,7 +33,7 @@ class NuScenesDataset(PointCloudDataset):
         self,
         info_path,
         root_path,
-        nsweeps=0,  # catch sweep mistake 
+        nsweeps=0,  # catch sweep mistake
         cfg=None,
         pipeline=None,
         class_names=None,

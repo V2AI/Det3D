@@ -208,12 +208,12 @@ test_cfg = dict(
 # dataset settings
 dataset_type = "NuScenesDataset"
 nsweeps = 10
-data_root = "data/nuScenes"
+data_root = "/data/Datasets/nuScenes"
 
 db_sampler = dict(
     type="GT-AUG",
     enable=False,
-    db_info_path="data/nuScenes/dbinfos_train_10sweeps_withvelo.pkl",
+    db_info_path="/data/Datasets/nuScenes/dbinfos_train_10sweeps_withvelo.pkl",
     sample_groups=[
         dict(car=2),
         dict(truck=3),
@@ -296,8 +296,8 @@ test_pipeline = [
     dict(type="Reformat"),
 ]
 
-train_anno = "data/nuScenes/infos_train_10sweeps_withvelo_filter_True.pkl"
-val_anno = "data/nuScenes/infos_val_10sweeps_withvelo_filter_True.pkl"
+train_anno = "/data/Datasets/nuScenes/nuscenes_infos_train_10sweeps_withvelo.pkl"
+val_anno = "/data/Datasets/nuScenes/nuscenes_infos_val_10sweeps_withvelo.pkl"
 test_anno = None
 
 data = dict(
@@ -363,7 +363,7 @@ device_ids = range(8)
 dist_params = dict(backend="nccl", init_method="env://")
 log_level = "INFO"
 work_dir = './work_dirs/{}/'.format(__file__[__file__.rfind('/') + 1:-3])
-load_from = None 
-resume_from = None 
-workflow = [('train', 1)]
+load_from = None
+resume_from = None
+workflow = [('train', 1), ("val", 1)]
 
