@@ -130,6 +130,5 @@ Where `CHECKPOINT` represents the path of model file.
 
 ### Common Issues
 
-##### Velocity is NaN or Loss is NaN when training on NuScenes
-
-Use nusenes-devkit we provided instead of the official version.
+* `qt.qpa.screen: QXcbConnection: Could not connect to display localhost:11.0`
+  - SOLUTION: ```export QT_QPA_PLATFORM='offscreen'``` 

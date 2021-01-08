@@ -162,7 +162,7 @@ model = dict(
         in_channels=sum([256, 256]),
         norm_cfg=norm_cfg,
         tasks=tasks,
-        weights=[1,],
+        weights=[1, ],
         box_coder=build_box_coder(box_coder),
         encode_background_as_zeros=True,
         loss_norm=dict(
@@ -365,5 +365,4 @@ log_level = "INFO"
 work_dir = './work_dirs/{}/'.format(__file__[__file__.rfind('/') + 1:-3])
 load_from = None
 resume_from = None
-workflow = [('train', 1), ("val", 1)]
-
+workflow = [('train', 20), ('val', 1)]
