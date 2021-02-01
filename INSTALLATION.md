@@ -35,7 +35,7 @@ we have tested the following versions of OS and softwares:
 #### nuscenes-devkit
 
 ```bash
-pip install nuscenes-devikit
+pip install nuscenes-devkit
 ```
 
 ### Install Det3D
