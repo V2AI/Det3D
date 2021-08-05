@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <boost/geometry.hpp>
+#include <boost/geometry/geometries/geometries.hpp>
 template<typename DType, typename ShapeContainer>
 inline py::array_t<DType> constant(ShapeContainer shape, DType value){
     // create ROWMAJOR array.
