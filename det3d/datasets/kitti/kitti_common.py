@@ -174,6 +174,7 @@ def _create_reduced_point_cloud(data_path, info_path, save_path=None, back=False
             points_v, rect, Trv2c, P2, image_info["image_shape"]
         )
         if save_path is None:
+            Path.mkdir(v_path.parent.parent / (v_path.parent.stem + "_reduced"))
             save_filename = (
                 v_path.parent.parent / (v_path.parent.stem + "_reduced") / v_path.name
             )
