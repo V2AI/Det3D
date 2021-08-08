@@ -1,19 +1,17 @@
 import argparse
-import json
 import os
-import sys
 
-import numpy as np
 import torch
-import yaml
+import torch.distributed as dist
+
+import subprocess
+
 from det3d import __version__
 from det3d.datasets import build_dataset
 from det3d.models import build_detector
 from det3d.torchie import Config
 from det3d.torchie.apis import (
-    build_optimizer,
     get_root_logger,
-    init_dist,
     set_random_seed,
     train_detector,
 )
@@ -38,8 +36,8 @@ def parse_args():
     parser.add_argument("--seed", type=int, default=None, help="random seed")
     parser.add_argument(
         "--launcher",
-        choices=["none", "pytorch", "slurm", "mpi"],
-        default="none",
+        choices=["pytorch", "slurm"],
+        default="pytorch",
         help="job launcher",
     )
     parser.add_argument("--local_rank", type=int, default=0)
@@ -65,7 +63,6 @@ def main():
     args = parse_args()
 
     cfg = Config.fromfile(args.config)
-    cfg.local_rank = args.local_rank
 
     # update configs according to CLI args
     if args.work_dir is not None:
@@ -73,15 +70,42 @@ def main():
     if args.resume_from is not None:
         cfg.resume_from = args.resume_from
 
-    distributed = False
-    if "WORLD_SIZE" in os.environ:
-        distributed = int(os.environ["WORLD_SIZE"]) > 1
+    distributed = torch.cuda.device_count() > 1
 
     if distributed:
-        torch.cuda.set_device(args.local_rank)
-        torch.distributed.init_process_group(backend="nccl", init_method="env://")
+        if args.launcher == "pytorch":
+            torch.cuda.set_device(args.local_rank)
+            torch.distributed.init_process_group(backend="nccl", init_method="env://")
+            cfg.local_rank = args.local_rank
+        elif args.launcher == "slurm":
+            proc_id = int(os.environ["SLURM_PROCID"])
+            ntasks = int(os.environ["SLURM_NTASKS"])
+            node_list = os.environ["SLURM_NODELIST"]
+            num_gpus = torch.cuda.device_count()
+            cfg.gpus = num_gpus
+            torch.cuda.set_device(proc_id % num_gpus)
+            addr = subprocess.getoutput(
+                f"scontrol show hostname {node_list} | head -n1")
+            # specify master port
+            port = None
+            if port is not None:
+                os.environ["MASTER_PORT"] = str(port)
+            elif "MASTER_PORT" in os.environ:
+                pass  # use MASTER_PORT in the environment variable
+            else:
+                # 29500 is torch.distributed default port
+                os.environ["MASTER_PORT"] = "29501"
+            # use MASTER_ADDR in the environment variable if it already exists
+            if "MASTER_ADDR" not in os.environ:
+                os.environ["MASTER_ADDR"] = addr
+            os.environ["WORLD_SIZE"] = str(ntasks)
+            os.environ["LOCAL_RANK"] = str(proc_id % num_gpus)
+            os.environ["RANK"] = str(proc_id)
 
-        cfg.gpus = torch.distributed.get_world_size()
+            dist.init_process_group(backend="nccl")
+            cfg.local_rank = int(os.environ["LOCAL_RANK"])
+
+        cfg.gpus = dist.get_world_size()
 
     if args.autoscale_lr:
         cfg.lr_config.lr_max = cfg.lr_config.lr_max * cfg.gpus
@@ -90,18 +114,6 @@ def main():
     logger = get_root_logger(cfg.log_level)
     logger.info("Distributed training: {}".format(distributed))
     logger.info(f"torch.backends.cudnn.benchmark: {torch.backends.cudnn.benchmark}")
-
-    if args.local_rank == 0:
-        # copy important files to backup
-        backup_dir = os.path.join(cfg.work_dir, "det3d")
-        os.makedirs(backup_dir, exist_ok=True)
-        os.system("cp -r * %s/" % backup_dir)
-        logger.info(f"Backup source files to {cfg.work_dir}/det3d")
-
-    # set random seeds
-    if args.seed is not None:
-        logger.info("Set random seed to {}".format(args.seed))
-        set_random_seed(args.seed)
 
     model = build_detector(cfg.model, train_cfg=cfg.train_cfg, test_cfg=cfg.test_cfg)
 

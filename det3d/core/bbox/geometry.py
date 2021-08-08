@@ -276,7 +276,7 @@ def _points_in_convex_polygon_3d_jit(
     return ret
 
 
-@numba.jit
+# @numba.jit
 def points_in_convex_polygon_jit(points, polygon, clockwise=True):
     """check points is in 2d convex polygons. True when point in polygon
     Args:
