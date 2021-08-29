@@ -104,8 +104,10 @@ def main():
 
             dist.init_process_group(backend="nccl")
             cfg.local_rank = int(os.environ["LOCAL_RANK"])
-
         cfg.gpus = dist.get_world_size()
+    else:
+        cfg.local_rank = 0
+        cfg.gpus = 1
 
     if args.autoscale_lr:
         cfg.lr_config.lr_max = cfg.lr_config.lr_max * cfg.gpus

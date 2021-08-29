@@ -301,8 +301,8 @@ val_anno = "/mnt/lustre/zhubenjin/datasets/nuScenes/infos_val_10sweeps_withvelo.
 test_anno = None
 
 data = dict(
-    samples_per_gpu=4,
-    workers_per_gpu=8,
+    samples_per_gpu=16,
+    workers_per_gpu=6,
     train=dict(
         type=dataset_type,
         root_path=data_root,

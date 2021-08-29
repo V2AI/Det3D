@@ -16,10 +16,13 @@ then
 fi
 
 gpu8="srun --partition=vi_irdc --mpi=pmi2 --gres=gpu:8 -n8 --cpus-per-task=8 --ntasks-per-node=8 --job-name=node1gpu8 --kill-on-bad-exit=1"
+debug="srun --partition=vi_irdc --mpi=pmi2 --gres=gpu:1 -n1 --cpus-per-task=8 --ntasks-per-node=1 --job-name=debug --kill-on-bad-exit=1"
 
 # Voxelnet
 # python -m torch.distributed.launch --nproc_per_node=8 ./tools/train.py examples/second/configs/kitti_car_vfev3_spmiddlefhd_rpn1_mghead_syncbn.py --work_dir=$SECOND_WORK_DIR
-$gpu8 python ./tools/train.py --launcher slurm examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py --work_dir=$NUSC_CBGS_WORK_DIR
+# $gpu8 python ./tools/train.py --launcher slurm examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py --work_dir=$NUSC_CBGS_WORK_DIR
+$gpu8 python ./tools/dist_test.py --launcher slurm examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py --work_dir=/mnt/lustre/zhubenjin/logs/Det3D_Outputs/NUSC_CBGS_nusc_cbgs_baseline_20210808-144525 --checkpoint=/mnt/lustre/zhubenjin/logs/Det3D_Outputs/NUSC_CBGS_nusc_cbgs_baseline_20210808-144525/epoch_10.pth
+# $debug python ./tools/train.py examples/cbgs/configs/nusc_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py --work_dir=$NUSC_CBGS_WORK_DIR
 # python -m torch.distributed.launch --nproc_per_node=8 ./tools/train.py examples/second/configs/lyft_all_vfev3_spmiddleresnetfhd_rpn2_mghead_syncbn.py --work_dir=$LYFT_CBGS_WORK_DIR
 
 # PointPillars
