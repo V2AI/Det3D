@@ -7,6 +7,7 @@ import fire
 from det3d.datasets.kitti import kitti_common as kitti_ds
 from det3d.datasets.nuscenes import nusc_common as nu_ds
 from det3d.datasets.lyft import lyft_common as lyft_ds
+from det3d.datasets.once import once_common as once_ds
 from det3d.datasets.utils.create_gt_database import create_groundtruth_database
 
 
@@ -34,6 +35,17 @@ def lyft_data_prep(root_path, version="trainval"):
     create_groundtruth_database(
         "LYFT", root_path, Path(root_path) / "lyft_info_train.pkl"
     )
+
+def once_data_prep(root_path, split, nsweeps=1):
+    once_ds.create_once_infos(root_path, split)
+    if split == 'train':
+        create_groundtruth_database(
+            "ONCE",
+            root_path,
+            Path(root_path) / "infos_infos_train_pkl",
+            used_classes=[''],
+            nsweeps=nsweeps
+        )
 
 
 if __name__ == "__main__":
