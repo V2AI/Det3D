@@ -1,14 +1,12 @@
 import pickle
 import json
 import numpy as np
-
 from pathlib import Path
-from tqdm import tqdm
 
 from det3d.core import box_np_ops
 
 
-def create_once_infos(data_path, save_path=None, relative_path=True):
+def create_once_infos(data_path, save_path=None):
 
     print("Generate info. this may take several minutes.")
     if save_path is None:
@@ -32,8 +30,7 @@ def get_infos(data_path, split):
     sample_list = [x.strip() for x in open(split_dir).readlines()] if split_dir.exists() else None
 
     infos = []
-    for seq_idx in tqdm(sample_list):
-        print('%s seq_idx: %s' % (split, seq_idx))
+    for seq_idx in sample_list:
         seq_info = []
         seq_path = Path(data_path) / 'data' / seq_idx
         json_path = seq_path / ('%s.json' % seq_idx)
@@ -43,6 +40,7 @@ def get_infos(data_path, split):
         calib = info_seq['calib']
         for frame_idx, frame in enumerate(info_seq['frames']):
             frame_id = frame['frame_id']
+            print('%s seq_idx: %s frame_idx: %s frame_id: %s' % (split, seq_idx, frame_idx, frame_id))
             if frame_idx == 0:
                 prev_id = None
             else:
@@ -93,7 +91,7 @@ def get_infos(data_path, split):
                 }
 
                 # caculate num points in gt
-                bin_path = data_path / seq_idx / 'lidar_roof' / '{}.bin'.format(frame_id)
+                bin_path = data_path / 'data' / seq_idx / 'lidar_roof' / '{}.bin'.format(frame_id)
                 points = np.fromfile(bin_path, dtype=np.float32).reshape(-1, 4)
                 indices = box_np_ops.points_in_rbbox(points[:, :3], annos_dict['boxes_3d'])
                 num_points_in_gt = indices.sum(0)
