@@ -1,7 +1,8 @@
 import torch
 import torch.distributed as dist
 import torch.nn as nn
-from det3d.ops.syncbn import DistributedSyncBN
+# TODO: need to fix
+# from det3d.ops.syncbn import DistributedSyncBN
 from det3d.utils.dist import dist_common as comm
 from torch.autograd.function import Function
 from torch.nn import BatchNorm2d
@@ -62,7 +63,7 @@ norm_cfg = {
     "BN": ("bn", nn.BatchNorm2d),
     "BN1d": ("bn1d", nn.BatchNorm1d),
     "GN": ("gn", nn.GroupNorm),
-    "SyncBN": ("bn", DistributedSyncBN),
+    # "SyncBN": ("bn", DistributedSyncBN),
     "NaiveSyncBN": ("bn", NaiveSyncBatchNorm),
     # and potentially 'SN'
 }
