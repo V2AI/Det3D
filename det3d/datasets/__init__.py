@@ -4,6 +4,7 @@ from .builder import build_dataset
 from .kitti import KittiDataset
 from .lyft import LyftDataset
 from .nuscenes import NuScenesDataset
+from .once import OnceDataset
 
 # from .custom import CustomDataset
 from .dataset_wrappers import ConcatDataset, RepeatDataset

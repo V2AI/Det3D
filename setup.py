@@ -160,58 +160,58 @@ if __name__ == "__main__":
         setup_requires=["pytest-runner", "cython", "numpy"],
         tests_require=["pytest"],
         install_requires=get_requirements(),
-        ext_modules=[
-            CUDAExtension(
-                name="det3d.ops.pointnet2.PN2",
-                sources=glob.glob("det3d/ops/pointnet2/src/*.cpp")
-                + glob.glob("det3d/ops/pointnet2/src/*.cu"),
-                extra_compile_args={"cxx": ["-g",], "nvcc": ["-g",],},
-            ),
-            CUDAExtension(
-                name="det3d.ops.rroi_align.RotateRoIAlign",
-                sources=[
-                    "det3d/ops/rroi_align/ROIAlign_cuda.cpp",
-                    "det3d/ops/rroi_align/ROIAlign_cuda_kernel.cu",
-                ],
-            ),
-            CUDAExtension(
-                name="det3d.ops.roipool3d.RoIPool3D",
-                sources=[
-                    "det3d/ops/roipool3d/src/roipool3d.cpp",
-                    "det3d/ops/roipool3d/src/roipool3d_kernel.cu",
-                ],
-                extra_compile_args={"cxx": ["-g"], "nvcc": ["-O2"]},
-            ),
-            CUDAExtension(
-                name="det3d.ops.iou3d.IoU3D",
-                sources=[
-                    "det3d/ops/iou3d/src/iou3d.cpp",
-                    "det3d/ops/iou3d/src/iou3d_kernel.cu",
-                ],
-                extra_compile_args={"cxx": ["-g"], "nvcc": ["-O2"]},
-            ),
-            CUDAExtension(
-                name="det3d.ops.nms.nms",
-                sources=[
-                    "det3d/ops/nms/nms.cc",
-                    "det3d/ops/nms/nms_kernel.cu",
-                ],
-                extra_compile_args={"cxx": ["-g"], "nvcc": ["-O2"]},
-            ),
-            make_cuda_ext(
-                name="sigmoid_focal_loss_cuda",
-                module="det3d.ops.sigmoid_focal_loss",
-                sources=[
-                    "src/sigmoid_focal_loss.cpp",
-                    "src/sigmoid_focal_loss_cuda.cu",
-                ],
-            ),
-            make_cuda_ext(
-                name="syncbn_gpu",
-                module="det3d.ops.syncbn",
-                sources=["src/syncbn_cuda.cpp", "src/syncbn_cuda_kernel.cu"],
-            ),
-        ],
+        # ext_modules=[
+        #     CUDAExtension(
+        #         name="det3d.ops.pointnet2.PN2",
+        #         sources=glob.glob("det3d/ops/pointnet2/src/*.cpp")
+        #         + glob.glob("det3d/ops/pointnet2/src/*.cu"),
+        #         extra_compile_args={"cxx": ["-g",], "nvcc": ["-g",],},
+        #     ),
+        #     CUDAExtension(
+        #         name="det3d.ops.rroi_align.RotateRoIAlign",
+        #         sources=[
+        #             "det3d/ops/rroi_align/ROIAlign_cuda.cpp",
+        #             "det3d/ops/rroi_align/ROIAlign_cuda_kernel.cu",
+        #         ],
+        #     ),
+        #     CUDAExtension(
+        #         name="det3d.ops.roipool3d.RoIPool3D",
+        #         sources=[
+        #             "det3d/ops/roipool3d/src/roipool3d.cpp",
+        #             "det3d/ops/roipool3d/src/roipool3d_kernel.cu",
+        #         ],
+        #         extra_compile_args={"cxx": ["-g"], "nvcc": ["-O2"]},
+        #     ),
+        #     CUDAExtension(
+        #         name="det3d.ops.iou3d.IoU3D",
+        #         sources=[
+        #             "det3d/ops/iou3d/src/iou3d.cpp",
+        #             "det3d/ops/iou3d/src/iou3d_kernel.cu",
+        #         ],
+        #         extra_compile_args={"cxx": ["-g"], "nvcc": ["-O2"]},
+        #     ),
+        #     CUDAExtension(
+        #         name="det3d.ops.nms.nms",
+        #         sources=[
+        #             "det3d/ops/nms/nms.cc",
+        #             "det3d/ops/nms/nms_kernel.cu",
+        #         ],
+        #         extra_compile_args={"cxx": ["-g"], "nvcc": ["-O2"]},
+        #     ),
+        #     make_cuda_ext(
+        #         name="sigmoid_focal_loss_cuda",
+        #         module="det3d.ops.sigmoid_focal_loss",
+        #         sources=[
+        #             "src/sigmoid_focal_loss.cpp",
+        #             "src/sigmoid_focal_loss_cuda.cu",
+        #         ],
+        #     ),
+        #     make_cuda_ext(
+        #         name="syncbn_gpu",
+        #         module="det3d.ops.syncbn",
+        #         sources=["src/syncbn_cuda.cpp", "src/syncbn_cuda_kernel.cu"],
+        #     ),
+        # ],
         cmdclass={"build_ext": BuildExtension},
         zip_safe=False,
     )

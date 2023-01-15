@@ -12,6 +12,7 @@ dataset_name_map = {
     "KITTI": "KittiDataset",
     "NUSC": "NuScenesDataset",
     "LYFT": "LyftDataset",
+    "ONCE": "OnceDataset",
 }
 
 
@@ -66,7 +67,7 @@ def create_groundtruth_database(
             dbinfo_path = root_path / "dbinfos_train.pkl"
     if dataset_class_name == "NUSC" or dataset_class_name == "LYFT":
         point_features = 5
-    elif dataset_class_name == "KITTI":
+    elif dataset_class_name == "KITTI" or dataset_class_name == "ONCE":
         point_features = 4
 
     db_path.mkdir(parents=True, exist_ok=True)
