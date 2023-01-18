@@ -36,16 +36,14 @@ def lyft_data_prep(root_path, version="trainval"):
         "LYFT", root_path, Path(root_path) / "lyft_info_train.pkl"
     )
 
-def once_data_prep(root_path, save_path=None, nsweeps=1):
+def once_data_prep(root_path, save_path=None):
     once_ds.create_once_infos(root_path, save_path)
-    # if split == 'train':
-    #     create_groundtruth_database(
-    #         "ONCE",
-    #         root_path,
-    #         Path(root_path) / "infos_infos_train_pkl",
-    #         used_classes=[''],
-    #         nsweeps=nsweeps
-    #     )
+    create_groundtruth_database(
+        "ONCE",
+        root_path,
+        Path(root_path) / "once_infos_train_pkl",
+        relative_path=False
+    )
 
 
 if __name__ == "__main__":

@@ -45,19 +45,40 @@ class OnceDataset(PointCloudDataset):
         if not hasattr(self, "_once_infos"):
             with open(self._info_path, "rb") as f:
                 self._once_infos = pickle.load(f)
-        return len(self._info_path)
+        return len(self._once_infos)
 
     def __getitem__(self, idx):
         return self.get_sensor_data(idx, with_gp=True)
 
-    def get_sensor_data(self, idx, with_image=False, with_gp=False):
-        pass
+    def get_sensor_data(self, idx, with_image=False):
+        info = self._once_infos[idx]
+        res = {
+            "lidar": {
+                "type": "lidar",
+                "points": None,
+            },
+            "metadata": {
+                "num_point_features": OnceDataset.NumPointFeatures,
+                "image_idx": info['frame_id'],
+                "image_shape": info['metadata']['image_size'],
+            },
+        "mode": "val" if self.test_mode else "train",
+        },
+
+        data, _ = self.pipeline(res, info)
+        
+        return data
 
     @property
-    def num_point_features(self):
+    def num_point_features(self, idx):
         return self._num_point_features
 
     @property
     def ground_truth_annotations(self):
-        pass
+        if "annos" not in self._once_infos[0]:
+            return None
+        
+        gt_annos = [info["annos"] for info in self._once_infos]
+
+        return gt_annos
     

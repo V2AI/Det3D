@@ -90,6 +90,8 @@ def create_groundtruth_database(
             points = sensor_data["lidar"]["points"]
         elif dataset_class_name == "LYFT":
             points = sensor_data["lidar"]["points"]
+        elif dataset_class_name == "ONCE":
+            points = sensor_data["lidar"]["points"]
 
         annos = sensor_data["lidar"]["annotations"]
         gt_boxes = annos["boxes"]
