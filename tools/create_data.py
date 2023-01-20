@@ -41,7 +41,7 @@ def once_data_prep(root_path, save_path=None):
     create_groundtruth_database(
         "ONCE",
         root_path,
-        Path(root_path) / "once_infos_train_pkl",
+        Path(root_path) / "once_infos_train.pkl",
         relative_path=False
     )
 

@@ -85,7 +85,7 @@ def get_infos(data_path, split):
                 for cam_name in cam_names:
                     boxes_2d_dict[cam_name] = np.array(annos['boxes_2d'][cam_name])
                 annos_dict = {
-                    'name': np.array(annos['names']),
+                    'names': np.array(annos['names']),
                     'boxes_3d': boxes_3d,
                     'boxes_2d': boxes_2d_dict
                 }
@@ -100,6 +100,6 @@ def get_infos(data_path, split):
                 frame_dict.update({'annos': annos_dict})
 
             seq_info.append(frame_dict)
-        return seq_info
+        infos.extend(seq_info)
         
     return infos

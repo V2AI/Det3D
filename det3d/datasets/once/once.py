@@ -38,6 +38,8 @@ class OnceDataset(PointCloudDataset):
         )
 
         self._info_path = info_path
+        with open(self._info_path, "rb") as f:
+            self._once_infos = pickle.load(f)
         self._class_names = class_names
         self._num_point_features = OnceDataset.NumPointFeatures
 
@@ -52,6 +54,10 @@ class OnceDataset(PointCloudDataset):
 
     def get_sensor_data(self, idx, with_image=False):
         info = self._once_infos[idx]
+        if 'annos' not in info:
+            print(f"Skipping frame_id: {info['frame_id']} Since no annos.")
+            return None
+        
         res = {
             "lidar": {
                 "type": "lidar",

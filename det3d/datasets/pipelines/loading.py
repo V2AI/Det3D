@@ -72,6 +72,8 @@ class LoadPointCloudFromFile(object):
 
     def __call__(self, res, info):
 
+        if isinstance(res, tuple):
+            res = res[0]
         res["type"] = self.type
 
         if self.type == "KittiDataset":
@@ -158,7 +160,7 @@ class LoadPointCloudFromFile(object):
             res["lidar"]["points"] = points
 
         elif self.type == "OnceDataset":
-            pc_path = info['pc_path'] # absolute path
+            pc_path = info['lidar'] # absolute path
             points = np.fromfile(str(pc_path), dtype=np.float32, count=-1).reshape(
                 [-1, res["metadata"]["num_point_features"]]
             )
