@@ -206,11 +206,11 @@ if __name__ == "__main__":
                     "src/sigmoid_focal_loss_cuda.cu",
                 ],
             ),
-            make_cuda_ext(
-                name="syncbn_gpu",
-                module="det3d.ops.syncbn",
-                sources=["src/syncbn_cuda.cpp", "src/syncbn_cuda_kernel.cu"],
-            ),
+            # make_cuda_ext(
+            #     name="syncbn_gpu",
+            #     module="det3d.ops.syncbn",
+            #     sources=["src/syncbn_cuda.cpp", "src/syncbn_cuda_kernel.cu"],
+            # ),
         ],
         cmdclass={"build_ext": BuildExtension},
         zip_safe=False,
