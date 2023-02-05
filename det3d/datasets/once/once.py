@@ -54,7 +54,7 @@ class OnceDataset(PointCloudDataset):
             "metadata": {
                 "num_point_features": OnceDataset.NumPointFeatures,
                 "image_idx": info['frame_id'],
-                "image_shape": info['metadata']['image_size'],
+                "image_shape": None,
             },
         "mode": "val" if self.test_mode else "train",
         },
