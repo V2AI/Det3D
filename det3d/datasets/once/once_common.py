@@ -7,7 +7,6 @@ from det3d.core import box_np_ops
 
 
 def create_once_infos(data_path, save_path=None):
-
     print("Generate info. this may take several minutes.")
     if save_path is None:
         save_path = Path(data_path)
@@ -75,8 +74,6 @@ def get_infos(data_path, split):
             if 'annos' in frame:
                 annos = frame['annos']
                 # boxes_3d of shape `(N, 7)` where
-                # N is the number of objects
-                # 7 is `(x, y, z, h, w, l, theta)` in lidar_coordinates
                 boxes_3d = np.array(annos['boxes_3d'])
                 if boxes_3d.shape[0] == 0:
                     print(f"Skipping {frame_id} of {seq_idx} since no objects annotated.")
