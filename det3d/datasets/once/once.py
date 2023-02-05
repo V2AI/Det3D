@@ -1,17 +1,5 @@
-import sys
 import pickle
-import json
-import random
-import operator
-from numba.cuda.simulator.api import detect
-import numpy as np
-
-from functools import reduce
-from pathlib import Path
-from copy import deepcopy
-
 from det3d.datasets.custom import PointCloudDataset
-
 from det3d.datasets.registry import DATASETS
 
 
@@ -76,7 +64,7 @@ class OnceDataset(PointCloudDataset):
         return data
 
     @property
-    def num_point_features(self, idx):
+    def num_point_features(self):
         return self._num_point_features
 
     @property
