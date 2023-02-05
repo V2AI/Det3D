@@ -37,7 +37,7 @@ def lyft_data_prep(root_path, version="trainval"):
     )
 
 def once_data_prep(root_path, save_path=None):
-    # once_ds.create_once_infos(root_path, save_path)
+    once_ds.create_once_infos(root_path, save_path)
     create_groundtruth_database(
         "ONCE",
         root_path,
