@@ -51,11 +51,8 @@ def nms_kernel_v2(n_boxes, nms_overlap_thresh, dev_boxes, dev_mask):
         block_boxes[tx, 4] = dev_boxes[dev_box_idx, 4]
     cuda.syncthreads()
     if cuda.threadIdx.x < row_size:
-        cur_box_idx = threadsPerBlock * row_start + cuda.threadIdx.x
+        cur_box_idx , i , t , start  = threadsPerBlock * row_start + cuda.threadIdx.x, 0, 0, 0
         # cur_box = dev_boxes + cur_box_idx * 5;
-        i = 0
-        t = 0
-        start = 0
         if row_start == col_start:
             start = tx + 1
         for i in range(start, col_size):
