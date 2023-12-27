@@ -12,6 +12,7 @@ dataset_name_map = {
     "KITTI": "KittiDataset",
     "NUSC": "NuScenesDataset",
     "LYFT": "LyftDataset",
+    "ONCE": "OnceDataset",
 }
 
 
@@ -66,7 +67,7 @@ def create_groundtruth_database(
             dbinfo_path = root_path / "dbinfos_train.pkl"
     if dataset_class_name == "NUSC" or dataset_class_name == "LYFT":
         point_features = 5
-    elif dataset_class_name == "KITTI":
+    elif dataset_class_name == "KITTI" or dataset_class_name == "ONCE":
         point_features = 4
 
     db_path.mkdir(parents=True, exist_ok=True)
@@ -77,9 +78,10 @@ def create_groundtruth_database(
     # def prepare_single_data(index):
     for index in tqdm(range(len(dataset))):
         image_idx = index
-        # modified to nuscenes
         sensor_data = dataset.get_sensor_data(index)
-        # for nsweep, sensor_data in enumerate(sensor_datas):
+        if sensor_data is None:
+            continue
+        
         if "image_idx" in sensor_data["metadata"]:
             image_idx = sensor_data["metadata"]["image_idx"]
 
@@ -88,6 +90,8 @@ def create_groundtruth_database(
         elif dataset_class_name == "KITTI":
             points = sensor_data["lidar"]["points"]
         elif dataset_class_name == "LYFT":
+            points = sensor_data["lidar"]["points"]
+        elif dataset_class_name == "ONCE":
             points = sensor_data["lidar"]["points"]
 
         annos = sensor_data["lidar"]["annotations"]

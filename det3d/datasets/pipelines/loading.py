@@ -72,6 +72,8 @@ class LoadPointCloudFromFile(object):
 
     def __call__(self, res, info):
 
+        if isinstance(res, tuple):
+            res = res[0]
         res["type"] = self.type
 
         if self.type == "KittiDataset":
@@ -157,6 +159,13 @@ class LoadPointCloudFromFile(object):
 
             res["lidar"]["points"] = points
 
+        elif self.type == "OnceDataset":
+            pc_path = info['lidar'] # absolute path
+            points = np.fromfile(str(pc_path), dtype=np.float32, count=-1).reshape(
+                [-1, res["metadata"]["num_point_features"]]
+            )
+            res["lidar"]["points"] = points
+
         else:
             raise NotImplementedError
 
@@ -218,6 +227,13 @@ class LoadPointCloudAnnotations(object):
                     "boxes": annos["bbox"],
                     "names": gt_names,
                 }
+
+        elif res["type"] == "OnceDataset":
+            res["lidar"]["annotations"] = {
+                "boxes": info["annos"]["boxes_3d"],
+                "names": info["annos"]["names"],
+            }
+
         else:
             return NotImplementedError
 
